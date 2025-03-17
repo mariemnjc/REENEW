@@ -10,9 +10,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_17_154248) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_17_164858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "rating"
+    t.text "review"
+    t.bigint "user_id", null: false
+    t.bigint "professional_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_id"], name: "index_bookings_on_professional_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "diplomas", force: :cascade do |t|
+    t.string "title"
+    t.string "date"
+    t.bigint "professional_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_id"], name: "index_diplomas_on_professional_id"
+  end
+
+  create_table "professionals", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "trainings"
+    t.string "experiences"
+    t.bigint "salon_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["salon_id"], name: "index_professionals_on_salon_id"
+  end
+
+  create_table "salons", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.text "description"
+    t.string "phone"
+    t.text "opening_hour"
+    t.boolean "certified"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_salons_on_user_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.integer "price"
+    t.bigint "professional_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_id"], name: "index_services_on_professional_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +78,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_17_154248) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "address"
+    t.string "categories"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "professionals"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "diplomas", "professionals"
+  add_foreign_key "professionals", "salons"
+  add_foreign_key "salons", "users"
+  add_foreign_key "services", "professionals"
 end
