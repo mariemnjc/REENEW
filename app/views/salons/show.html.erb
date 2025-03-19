@@ -1,0 +1,24 @@
+<h1><%= @salon.name %></h1>
+<p>Adresse : <%= @salon.address %></p>
+<p>Description : <%= @salon.description %></p>
+<p>Certifié : <%= @salon.certified ? "Oui" : "Non" %></p>
+
+<h2>Services proposés :</h2>
+<ul>
+  <% @services.each do |service| %>
+    <li><%= service.name %> - <%= service.price %> €</li>
+  <% end %>
+</ul>
+
+<h2>Professionnels :</h2>
+<ul>
+  <% @professionals.each do |pro| %>
+    <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.service.name if pro.service %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary" %>
+
+<% if policy(@salon).update? %>
+  <%= link_to "Éditer", edit_salon_path(@salon), class: "btn btn-primary" %>
+<% end %>

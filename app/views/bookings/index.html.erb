@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "dashboard_panel" do %>
+  <h2>Planning des Réservations</h2>
+  <ul>
+    <% @salon.bookings.each do |booking| %>
+      <li>
+        <strong><%= booking.user.first_name %></strong> -
+        <%= booking.start_date.strftime("%d/%m/%Y à %H:%M") %>
+        (<%= link_to "Annuler", booking_path(booking), method: :delete, data: { turbo_frame: "dashboard_panel" } %>)
+      </li>
+    <% end %>
+  </ul>
+<% end %>
