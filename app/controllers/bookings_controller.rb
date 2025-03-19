@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
     @bookings = current_user.bookings.includes(:professional)
   end
 
-  def create
+  def edit
     @professional = Professional.find(params[:professional_id])
     @booking = current_user.bookings.build(booking_params.merge(professional: @professional))
 
