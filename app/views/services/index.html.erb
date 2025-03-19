@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "dashboard_panel" do %>
+  <h2>Liste des Professionnels</h2>
+  <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), data: { turbo_frame: "dashboard_panel" } %>
+
+  <ul>
+    <% @salon.professionals.each do |pro| %>
+      <li>
+        <strong><%= pro.first_name %> <%= pro.last_name %></strong>
+        - <%= pro.experience %> ans d'expérience
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,12 +1,38 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Home page (US1)
+  root to: "pages#home"
+
+  # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Gestion du profil utilisateur
+  resources :users, only: [:show, :update]
+
+  # Salons - Création et gestion des établissements
+  resources :salons, except: [:destroy] do
+    # Gestion des professionnels dans un salon
+    resources :professionals, only: [:new, :create] do
+      resources :diplomas, only: [:index, :new, :create] # Diplômes associés aux professionnels
+    end
+
+    # Gestion des services d’un salon (nester ici pour bien associer aux salons)
+    resources :services, only: [:new, :create]
+
+    # Dashboard pour le propriétaire du salon
+    get "dashboard", on: :collection
+  end
+
+  # Gestion des professionnels (détail d’un professionnel)
+  resources :professionals, only: [:show] do
+    # Gestion des réservations (bookings) liées aux professionnels
+    resources :bookings, only: [:create]
+  end
+
+  # Réservations - Gestion des soins réservés
+  resources :bookings, only: [:index, :destroy]
+
+  # Paiements - Gestion des transactions (décommenter si nécessaire)
+  # resources :payments, only: [:create]
 end
