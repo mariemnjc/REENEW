@@ -1,0 +1,11 @@
+<h1>Salons</h1>
+<%= link_to "Créer un Salon", new_salon_path, class: "btn btn-primary" %>
+
+<ul>
+  <% @salons.each do |salon| %>
+    <li>
+      <%= link_to salon.name, salon_path(salon) %>
+      (<%= salon.certified ? "Certifié" : "Non Certifié" %>)
+    </li>
+  <% end %>
+</ul>

@@ -1,4 +1,6 @@
 class Salon < ApplicationRecord
   belongs_to :user
-  belongs_to :professional
+  has_many :professionals, dependent: :destroy
+  has_many :services, dependent: :destroy
+  has_one_attached :photo
 end
