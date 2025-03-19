@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_19_082053) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_19_111825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_19_082053) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["professional_id"], name: "index_diplomas_on_professional_id"
+  end
+
+  create_table "professional_services", force: :cascade do |t|
+    t.bigint "professional_id", null: false
+    t.bigint "service_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_id"], name: "index_professional_services_on_professional_id"
+    t.index ["service_id"], name: "index_professional_services_on_service_id"
   end
 
   create_table "professionals", force: :cascade do |t|
@@ -122,6 +131,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_19_082053) do
   add_foreign_key "bookings", "professionals"
   add_foreign_key "bookings", "users"
   add_foreign_key "diplomas", "professionals"
+  add_foreign_key "professional_services", "professionals"
+  add_foreign_key "professional_services", "services"
   add_foreign_key "professionals", "salons"
   add_foreign_key "salons", "users"
   add_foreign_key "services", "professionals"

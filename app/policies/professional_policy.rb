@@ -5,15 +5,14 @@ class ProfessionalPolicy < ApplicationPolicy
     end
   end
 
-  # Seuls les utilisateurs connectés peuvent accéder à la création
+  # Seuls les utilisateurs connectés peuvent créer un professionnel
   def new?
     user.present?
   end
 
-  # Seuls les utilisateurs connectés peuvent ajouter un pro
-end
   def create?
-    user.present?
+    user.present? && record.salon.user == user
+  end
 
   # Tout le monde peut voir un professionnel
   def show?
