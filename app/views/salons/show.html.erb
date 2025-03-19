@@ -13,7 +13,7 @@
 <h2>Professionnels :</h2>
 <ul>
   <% @professionals.each do |pro| %>
-    <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.service.name if pro.service %></li>
+    <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
   <% end %>
 </ul>
 
