@@ -4,10 +4,11 @@ class SalonsController < ApplicationController
 
   def index
     @salons = policy_scope(Salon)
+
   end
 
   def show
-    @services = @salon.services
+    @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
     authorize @salon
   end
@@ -29,7 +30,6 @@ class SalonsController < ApplicationController
   end
 
   def edit
-
     authorize @salon
   end
 
