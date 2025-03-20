@@ -1,2 +1,28 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="home-container">
+  <div class="home-content">
+
+   <%# 🔍 Barre de recherche %>
+    <div class="search-bar">
+      <div class="row justify-content-center">
+        <div class="col-sm-8 my-3">
+          <%= form_with url: salons_path, method: :get, local: true, class: "d-flex" do %>
+            <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Quel type de soin cherchez-vous ?" %>
+            <button type="submit" text="Rechercher" class="search-button">
+              <i class="fas fa-search"></i>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%# Professionnel : ajoutez un établissement %>
+    <div class="professional-part">
+    <p>Vous êtes un professionnel ?</p>
+      <div class="button-create-salon">
+      <%= link_to "Ajouter un établissement", new_user_registration_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+
+  </div>
+</div>

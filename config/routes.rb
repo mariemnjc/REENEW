@@ -27,9 +27,11 @@ Rails.application.routes.draw do
   # Gestion des professionnels (détail d’un professionnel)
   resources :professionals, only: [:show] do
     # Gestion des réservations (bookings) liées aux professionnels
-    resources :bookings, only: [:create]
   end
 
+  resources :professional_services, only: [] do
+    resources :bookings, only: [:new, :create]
+  end
   # Réservations - Gestion des soins réservés
   resources :bookings, only: [:index, :destroy]
 

@@ -12,6 +12,7 @@ class SalonsController < ApplicationController
   def show
     @salons = Salon.all
     @services = @salon.services
+    @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
     authorize @salon
   end
