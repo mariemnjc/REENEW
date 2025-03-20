@@ -59,8 +59,6 @@ class SalonsController < ApplicationController
     end
   end
 
-
-
   def dashboard
     @services = @salon.services
     @professionals = @salon.professionals

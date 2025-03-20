@@ -7,16 +7,6 @@ class BookingsController < ApplicationController
   end
 
   def show
-    # créneaux idéaux sans prise en compte des rdv déjà pris
-  @slot = [
-    ["09h00-10h00", Time.new(2022, 3, 26, 9, 0, 0, '+04:00')],
-    ["10h00-11h00", Time.new(2022, 3, 26, 10, 0, 0, '+04:00')],
-    ["11h00-12h00", Time.new(2022, 3, 26, 11, 0, 0, '+04:00')],
-    ["14h00-15h00", Time.new(2022, 3, 26, 14, 0, 0, '+04:00')],
-    ["15h00-16h00", Time.new(2022, 3, 26, 15, 0, 0, '+04:00')],
-    ["16h00-17h00", Time.new(2022, 3, 26, 15, 0, 0, '+04:00')],
-    ["17h00-18h00", Time.new(2022, 3, 26, 15, 0, 0, '+04:00')]
-  ]
   end
 
   def new

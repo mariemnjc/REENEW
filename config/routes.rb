@@ -4,15 +4,16 @@ Rails.application.routes.draw do
   # Home page (US1)
   root to: "pages#home"
   get "search", to: "pages#search"
+  get "profil", to: "pages#profil"
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Gestion du profil utilisateur
   resources :users, only: [:show, :update]
-
   # Salons - Création et gestion des établissements
   resources :salons, except: [:destroy] do
+    resources :bookings, only: [:index]
     # Gestion des professionnels dans un salon
     resources :professionals, only: [:new, :create] do
       resources :diplomas, only: [:index, :new, :create] # Diplômes associés aux professionnels
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
   # Réservations - Gestion des soins réservés
-  resources :bookings, only: [:index, :destroy]
+  resources :bookings, only: [:destroy]
 
   # Paiements - Gestion des transactions (décommenter si nécessaire)
   # resources :payments, only: [:create]
