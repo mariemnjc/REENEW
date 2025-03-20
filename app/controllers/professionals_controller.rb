@@ -2,6 +2,8 @@ class ProfessionalsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_salon, only: [:new, :create]
   before_action :set_professional, only: [:show]
+  before_action :set_salons, only: [:new, :create, :show]
+  layout "salons"
 
   def show
     @diplomas = @professional.diplomas
@@ -18,7 +20,7 @@ class ProfessionalsController < ApplicationController
     authorize @professional
 
     if @professional.save
-      redirect_to salon_path(@salon), notice: "Professionnel ajouté avec succès !"
+      redirect_to salon_path(@salon), notice: "Professionnel ajouté avec succès."
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,6 +34,10 @@ class ProfessionalsController < ApplicationController
 
   def set_professional
     @professional = Professional.find(params[:id])
+  end
+
+  def set_salons
+    @salons = policy_scope(Salon) || []
   end
 
   def professional_params

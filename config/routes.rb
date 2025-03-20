@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :services, only: [:new, :create]
 
     # Dashboard pour le propriétaire du salon
-    get "dashboard", on: :collection
+    get "dashboard", on: :member
   end
 
   # Gestion des professionnels (détail d’un professionnel)
