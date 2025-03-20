@@ -1,2 +1,14 @@
 // Import page-specific CSS files here.
 @import "home";
+
+.card-body {
+  background: white;
+  background: white;
+  margin: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: black;
+}
