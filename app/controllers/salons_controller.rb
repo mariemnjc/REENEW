@@ -64,6 +64,6 @@ class SalonsController < ApplicationController
   end
 
   def salon_params
-    params.require(:salon).permit(:name, :address, :description, :certified, :phone, :opening_hour)
+    params.require(:salon).permit(:name, :address, :description, :certified, :phone, :opening_hour, :photo)
   end
 end

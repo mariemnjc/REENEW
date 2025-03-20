@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Home page (US1)
   root to: "pages#home"
+  get "search", to: "pages#search"
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
