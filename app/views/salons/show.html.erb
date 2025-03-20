@@ -1,24 +1,32 @@
-<h1><%= @salon.name %></h1>
-<p>Adresse : <%= @salon.address %></p>
-<p>Description : <%= @salon.description %></p>
-<p>Certifié : <%= @salon.certified ? "Oui" : "Non" %></p>
+<div class="salons-container">
+  <aside class="sidebar">
+    <%= render "salons/sidebar" %>
+  </aside>
 
-<h2>Services proposés :</h2>
-<ul>
-  <% @services.each do |service| %>
-    <li><%= service.name %> - <%= service.price %> €</li>
-  <% end %>
-</ul>
+  <main class="main-content">
+    <h1><%= @salon.name %></h1>
+    <p>Adresse : <%= @salon.address %></p>
+    <p>Description : <%= @salon.description %></p>
+    <p>Certifié : <%= @salon.certified ? "Oui" : "Non" %></p>
 
-<h2>Professionnels :</h2>
-<ul>
-  <% @professionals.each do |pro| %>
-    <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
-  <% end %>
-</ul>
+    <h2>Services proposés :</h2>
+    <ul>
+      <% @salon.services.each do |service| %>
+        <li><%= service.name %> - <%= service.price %> €</li>
+      <% end %>
+    </ul>
 
-<%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary" %>
+    <h2>Professionnels :</h2>
+    <ul>
+      <% @salon.professionals.each do |pro| %>
+        <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
+      <% end %>
+    </ul>
 
-<% if policy(@salon).update? %>
-  <%= link_to "Éditer", edit_salon_path(@salon), class: "btn btn-primary" %>
-<% end %>
+    <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary" %>
+
+    <% if policy(@salon).update? %>
+      <%= link_to "Éditer", edit_salon_path(@salon), class: "btn btn-primary" %>
+    <% end %>
+  </main>
+</div>

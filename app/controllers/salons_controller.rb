@@ -1,16 +1,22 @@
 class SalonsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_salon, only: [:show, :edit, :update]
+  before_action :set_salon, only: [:show, :edit, :update, :dashboard]
+  layout "salons"
 
   def index
     @salons = policy_scope(Salon)
+    @salon = @salons.first if @salons.any?
   end
 
+
   def show
+    @salons = Salon.all
     @services = @salon.services
     @professionals = @salon.professionals
     authorize @salon
   end
+
+
 
   def new
     @salon = current_user.salons.build
@@ -29,7 +35,8 @@ class SalonsController < ApplicationController
   end
 
   def edit
-
+    @salon = Salon.find(params[:id])
+    @salons = policy_scope(Salon)
     authorize @salon
   end
 
@@ -37,25 +44,30 @@ class SalonsController < ApplicationController
     authorize @salon
 
     if @salon.update(salon_params)
-      redirect_to salon_path(@salon), notice: "Salon mis à jour."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  # Dashboard pour voir la gestion du salon par le propriétaire
-  def dashboard
-    @salon = current_user.salons.first # Récupère le premier salon du user
-    authorize @salon
-
-    if @salon
       @services = @salon.services
       @professionals = @salon.professionals
-      @bookings = @salon.bookings.includes(:user, :professional)
+
+      respond_to do |format|
+        format.html { redirect_to salon_path(@salon), notice: "Salon mis à jour." }
+      end
     else
-      redirect_to new_salon_path, alert: "Vous devez créer un salon avant d'accéder au dashboard."
+      respond_to do |format|
+        format.turbo_stream { render "salons/edit" }
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
+
+
+
+  def dashboard
+    @services = @salon.services
+    @professionals = @salon.professionals
+    @bookings = @salon.bookings.includes(:user, :professional)
+
+    render :dashboard
+  end
+
 
   private
 

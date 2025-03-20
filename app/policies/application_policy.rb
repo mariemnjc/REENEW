@@ -8,11 +8,6 @@ class ApplicationPolicy
     @record = record
   end
 
-  # Par défaut, personne ne peut voir la liste
-  def index?
-    false
-  end
-
   # Par défaut, personne ne peut voir un élément
   def show?
     false
