@@ -16,7 +16,7 @@
     </li>
   </ul>
  <ul class="sidebar-links">
-  <li><%= link_to "Dashboard", dashboard_salons_path, class: "btn btn-light" %></li>
+  <li><%= link_to "Dashboard", dashboard_salon_path(@salon), class: "btn btn-light" %></li>
   <li><%= link_to "Réservations", salon_bookings_path(@salon), class: "btn btn-light" %></li>
   <li><%= link_to "Professionnels", salon_professionals_path(@salon), class: "btn btn-light" %></li>
   <li><%= link_to "Services", salon_services_path(@salon), class: "btn btn-light" %></li>
