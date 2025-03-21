@@ -1,12 +1,37 @@
-<%= turbo_frame_tag "dashboard_panel" do %>
-  <h2>Planning des Réservations</h2>
-  <ul>
-    <% @salon.bookings.each do |booking| %>
-      <li>
-        <strong><%= booking.user.first_name %></strong> -
-        <%= booking.start_date.strftime("%d/%m/%Y à %H:%M") %>
-        (<%= link_to "Annuler", booking_path(booking), method: :delete, data: { turbo_frame: "dashboard_panel" } %>)
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<h2>Planning des Réservations pour le salon <%= @salon.name %></h2>
+
+<!-- Section du calendrier -->
+<div id="calendar"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      events: function(start, end, timezone, callback) {
+        $.ajax({
+          url: '<%= salon_bookings_path(@salon) %>',  // Utilise la route pour récupérer les événements
+          dataType: 'json',
+          success: function(data) {
+            var events = data.map(function(booking) {
+              return {
+                title: booking.title,
+                start: booking.start,
+                end: booking.end
+              };
+            });
+            callback(events);
+          }
+        });
+      },
+      editable: true,
+      droppable: true  // Permet de déplacer les événements dans le calendrier
+    });
+  });
+</script>

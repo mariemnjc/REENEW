@@ -1,11 +1,28 @@
 class SalonsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_salon, only: [:show, :edit, :update, :dashboard]
+  before_action :set_salon, only: [:show, :edit, :update, :dashboard, :bookings]
+  before_action :set_salons, only: [:dashboard]
   layout "salons"
+  layout 'application'
+
 
   def index
     @salons = policy_scope(Salon)
     @salon = @salons.first if @salons.any?
+    @bookings = @salon.bookings.all if @salon.present?
+  end
+
+  def bookings
+    # Formatage des réservations pour FullCalendar
+    @bookings = @salon.bookings.all
+    authorize @salon
+    render json: @bookings.map { |booking|
+      {
+        title: "Réservation de #{booking.user.first_name} #{booking.user.last_name}",
+        start: booking.start_date.to_s,
+        end: booking.end_date.to_s
+      }
+    }
   end
 
   def show
@@ -14,6 +31,15 @@ class SalonsController < ApplicationController
     @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
     authorize @salon
+  end
+
+  def dashboard
+    authorize @salon
+    @services = @salon.services
+    @professionals = @salon.professionals
+    @bookings = @salon.bookings.includes(:user, :professional)
+
+    render :dashboard
   end
 
   def new
@@ -56,21 +82,14 @@ class SalonsController < ApplicationController
     end
   end
 
-
-
-  def dashboard
-    @services = @salon.services
-    @professionals = @salon.professionals
-    @bookings = @salon.bookings.includes(:user, :professional)
-
-    render :dashboard
-  end
-
-
   private
 
   def set_salon
     @salon = Salon.find(params[:id])
+  end
+
+  def set_salons
+    @salons = Salon.all
   end
 
   def salon_params
