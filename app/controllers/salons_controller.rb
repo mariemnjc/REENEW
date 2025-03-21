@@ -5,9 +5,9 @@ class SalonsController < ApplicationController
   layout "salons"
 
   def index
+    @salons = policy_scope(Salon)
     @salon = @salons.first if @salons.any?
     @bookings = @salon.bookings.all if @salon.present?
-    @salons = policy_scope(Salon)
   end
 
   def bookings
