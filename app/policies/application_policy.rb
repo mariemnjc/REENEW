@@ -8,6 +8,10 @@ class ApplicationPolicy
     @record = record
   end
 
+  def index?
+    true
+  end
+
   # Par défaut, personne ne peut voir un élément
   def show?
     false
@@ -43,11 +47,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      raise NoMethodError, "You must define #resolve in #{self.class}"
+      scope.where(user_id: user.id)
     end
-
-    private
-
-    attr_reader :user, :scope
   end
 end

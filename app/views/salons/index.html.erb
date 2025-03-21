@@ -4,6 +4,37 @@
   </aside>
 
   <main class="main-content">
-    <p>Dashboard</p> <!-- Contenu par défaut -->
-  </main>
-</div>
+    <h2>Réservations - <%= @salon.name %></h2>
+
+    <!-- Section du calendrier -->
+    <div id="calendar"></div>
+
+    <!-- Intégration de FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
+          events: function(start, end, timezone, callback) {
+            $.ajax({
+              url: '<%= salon_bookings_path(@salon) %>',  // Utilise la route pour récupérer les événements
+              dataType: 'json',
+              success: function(data) {
+                var events = data.map(function(booking) {
+                  return {
+                    title: booking.title,
+                    start: booking.start,
+                    end: booking.end
+                  };
+                });
+                callback(events);
+              }
+            });
+          },
+          editabl

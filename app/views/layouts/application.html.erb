@@ -12,8 +12,36 @@
   </head>
 
   <body class="<%= yield :body_class %>"><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
+    <%= render "shared/flashes" %>
+<head>
+  <!-- Ajouter FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet" />
 
-    <%= yield %>
-  </body>
+  <!-- Autres balises meta et styles -->
+</head>
+
+<body>
+  <%= yield %>
+
+  <!-- Ajouter FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+
+  <!-- Votre script JavaScript pour configurer FullCalendar -->
+  <script>
+    $(document).ready(function() {
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        events: '/bookings.json',  // Utilisez cette route pour récupérer les réservations
+        editable: true,
+        droppable: true
+      });
+    });
+  </script>
+</body>
 </html>
