@@ -1,6 +1,10 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
+  def profil
+    # a utiliser pour afficher les résas des users
+  end
+
   def home
     @salons = Salon.all
     @services = Service.all
