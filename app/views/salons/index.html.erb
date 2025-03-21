@@ -1,40 +1,36 @@
-<div class="salons-container">
-  <aside class="sidebar">
-    <%= render "salons/sidebar" %>
-  </aside>
+<div class="container mt-5">
+  <!-- Début du filter cards -->
+  <div class="filter-component">
+    <div class="filter-container"  id="search" style="width: 250px;">
+      <div class="justify-content-between align-items-center">
+        <i class="fa-solid fa-sliders"></i>
+        <% @service_categories.each do |service_category| %>
+          <span><% service_category %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+    <!-- Fin du filter cards -->
 
-  <main class="main-content">
-    <h2>Réservations - <%= @salon.name %></h2>
-
-    <!-- Section du calendrier -->
-    <div id="calendar"></div>
-
-    <!-- Intégration de FullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },
-          events: function(start, end, timezone, callback) {
-            $.ajax({
-              url: '<%= salon_bookings_path(@salon) %>',  // Utilise la route pour récupérer les événements
-              dataType: 'json',
-              success: function(data) {
-                var events = data.map(function(booking) {
-                  return {
-                    title: booking.title,
-                    start: booking.start,
-                    end: booking.end
-                  };
-                });
-                callback(events);
-              }
-            });
-          },
-          editabl
+    <!-- Début de la liste de salon -->
+    <div class="salon-container">
+      <% @salons.each do |salon| %>
+        <div class="card-salon" >
+          <%= link_to salon_path(salon), class: 'text-decoration-none' do %>
+            <div class="card-body">
+              <% if salon.photo.attached? %>
+                <%= cl_image_tag salon.photo.variant(resize_to_fill: [100, 200]), width: 200, height: 100 %>
+              <% else %>
+                <%= cl_image_tag salon.photo.variant(resize_to_fill: [100, 200]), width: 200, height: 100 %>
+              <% end %>
+                <br>
+                  <h5 class="card-title mb-2"><%= salon.name %></h5>
+                  <p class="card-location"><%= salon.address %></p>
+                  <p class="card-text"><%= salon.average_rating %> <i class="fa-solid fa-star"></i></p>
+            </div>
+        </div>
+              <% end %>
+              <% end %>
+    </div>
+    <!-- Fin de liste -->
+</div>
