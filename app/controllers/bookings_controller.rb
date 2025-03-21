@@ -1,12 +1,17 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  # before_action :authorize_booking, only: [:create, :edit, :destroy]
+  before_action :set_salon
+  # before_action :authorize_salon
 
   def index
-    @bookings = current_user.bookings.includes(:professional)
+    # Récupérer les réservations pour le salon, après autorisation
+    @bookings = policy_scope(Booking).where(salon_id: @salon.id)
+    # @bookings = policy_scope(Booking)
+    # authorize @bookings
   end
 
   def show
+    # Action vide pour l'instant
   end
 
   def new
@@ -15,14 +20,12 @@ class BookingsController < ApplicationController
     @professional_service = ProfessionalService.find(params[:professional_service_id])
     @professional = @professional_service.professional
     @service = @professional_service.service
-    start_time = Time.new(2025, 3, 20, 8, 0, 0) # Début à 08:00
-    end_time = Time.new(2025, 3, 20, 18, 0, 0) # Fin à 18:00
 
+    start_time = Time.new(2025, 3, 20, 8, 0, 0)  # Exemple de créneaux horaires
+    end_time = Time.new(2025, 3, 20, 18, 0, 0)
     @slots = (start_time.to_i..end_time.to_i).step(3600).map do |t|
       [Time.at(t).strftime("%H:%M"), Time.at(t)]
     end
-
-    puts @slots
   end
 
   def create
@@ -31,7 +34,8 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.professional_service = @professional_service
     authorize @booking
-    if @booking.save!
+
+    if @booking.save
       redirect_to bookings_path, notice: "Réservation validée"
     else
       render :new, status: :unprocessable_entity
@@ -64,7 +68,13 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:start_date, :end_date, :status)
   end
 
-  def authorize_booking
-    authorize @booking
+  def set_salon
+    @salon = Salon.find(params[:salon_id])  # Utilise salon_id dans l'URL
+  rescue ActiveRecord::RecordNotFound
+    redirect_to salons_path, alert: "Salon non trouvé"
   end
+
+  # def authorize_salon
+  #   authorize @salon  # Vérifie l'autorisation pour accéder au salon
+  # end
 end

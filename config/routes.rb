@@ -37,6 +37,13 @@ Rails.application.routes.draw do
   # Réservations - Gestion des soins réservés
   resources :bookings, only: [:destroy]
 
-  # Paiements - Gestion des transactions (décommenter si nécessaire)
+  # Paiements - Gestion des transactions
   # resources :payments, only: [:create]
+
+  # Route pour récupérer les réservations au format JSON
+  resources :salons do
+    member do
+      get 'bookings'
+    end
+  end
 end
