@@ -3,6 +3,8 @@ class SalonsController < ApplicationController
   before_action :set_salon, only: [:show, :edit, :update, :dashboard, :bookings]
   before_action :set_salons, only: [:dashboard]
   layout "salons"
+  layout 'application'
+
 
   def index
     @salons = policy_scope(Salon)
