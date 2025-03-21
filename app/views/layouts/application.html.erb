@@ -8,20 +8,19 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%# <script type="text/javascript" src="https://try.abtasty.com/2818c37cf7a3438c1021b369dac8c9a5.js"></script> %>
-  </head>
 
-  <body><%= render "shared/navbar" %>
-    <%= render "shared/flashes" %>
-<head>
   <!-- Ajouter FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet" />
 
-  <!-- Autres balises meta et styles -->
-</head>
+  <%# <script type="text/javascript" src="https://try.abtasty.com/2818c37cf7a3438c1021b369dac8c9a5.js"></script> %>
+  </head>
 
-<body>
-  <%= yield %>
+  <body class="<%= yield :body_class %>">
+    <%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
+    <%= yield %>
+
+  <!-- Autres balises meta et styles -->
 
   <!-- Ajouter FullCalendar JS -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>

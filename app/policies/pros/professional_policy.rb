@@ -1,4 +1,4 @@
-class ProfessionalPolicy < ApplicationPolicy
+class Pros::ProfessionalPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all

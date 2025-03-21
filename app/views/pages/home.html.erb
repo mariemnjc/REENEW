@@ -1,13 +1,23 @@
-<div class="container">
+<% content_for :body_class, "home-background" %>
+
+<div class="container mt-5">
   <div class="home-content">
 
+    <%# Introduction %>
+      <div id="home-title" class="container text-center">
+        <h2>Rencontrez les meilleurs professionnels du soin</h2>
+        <br>
+        <p>Reenew garantie la conformité de votre prestataire et assure le respect des normes de sécurité, d’hygiène et de confort</p>
+      </div>
+        <br>
+
    <%# 🔍 Barre de recherche %>
-    <div class="search-bar">
-      <div class="row justify-content-center">
+    <div class="search-container">
+      <div class="search-bar">
         <div class="col-sm-8 my-3">
-          <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do %>
-            <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Quel type de soin cherchez-vous ?" %>
-            <button type="submit" text="Rechercher" class="search-button">
+          <%= form_with url: salons_path, method: :get, local: true, class: "d-flex search-form" do %>
+            <%= text_field_tag :query, params[:query], class: "form-control search-input", placeholder: "Quel type de soin cherchez-vous ?", style: "border-radius: 10px"%>
+            <button type="submit" text="Rechercher" class="search-button" style="border-radius: 10px">
               <i class="fas fa-search"></i>
             </button>
           <% end %>
@@ -16,10 +26,10 @@
     </div>
 
     <%# Ajoutez un établissement professionnel %>
-    <div class="professional-part">
-    <p>Vous êtes un professionnel ?</p>
+    <div class="professional-sign-up">
+      <p>Vous êtes un professionnel ?</p>
       <div class="button-create-salon">
-      <%= link_to "Ajouter un établissement", new_user_registration_path, class: "btn btn-primary" %>
+      <%= link_to "Ajouter un établissement", new_salon_path, class: "btn new-salon" %>
       </div>
     </div>
 

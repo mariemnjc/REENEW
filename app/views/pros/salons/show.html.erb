@@ -1,4 +1,7 @@
 <div class="salons-container">
+  <aside class="sidebar">
+    <%= render "salons/sidebar" %>
+  </aside>
 
   <main class="main-content">
     <h1><%= @salon.name %></h1>
@@ -8,7 +11,7 @@
 
     <h2>Services proposés :</h2>
     <ul>
-      <% @professional.services.each do |professional_service| %>
+      <% @professional_services.each do |professional_service| %>
         <li><%= professional_service.service.name %> - <%= professional_service.service.price %> €</li>
   <%= link_to "Choisir",  new_professional_service_booking_path(professional_service), class: "btn btn-primary" %>
       <% end %>
@@ -20,5 +23,12 @@
         <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
       <% end %>
     </ul>
+<% if authorize([:pros, Professional, @salon]).new? %>
+    <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary" %>
+<% end %>
+
+    <% if authorize([:pros, @salon]).update? %>
+      <%= link_to "Éditer", edit_salon_path(@salon), class: "btn btn-primary" %>
+    <% end %>
   </main>
 </div>
