@@ -8,7 +8,6 @@ class SalonsController < ApplicationController
     @salon = @salons.first if @salons.any?
   end
 
-
   def show
     @salons = Salon.all
     @services = @salon.services
@@ -16,8 +15,6 @@ class SalonsController < ApplicationController
     @professionals = @salon.professionals
     authorize @salon
   end
-
-
 
   def new
     @salon = current_user.salons.build
