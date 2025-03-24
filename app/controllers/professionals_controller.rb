@@ -1,9 +1,14 @@
 class ProfessionalsController < ApplicationController
+  layout "salons"
   before_action :authenticate_user!
-  before_action :set_salon, only: [:new, :create]
+  before_action :set_salon, only: [:index, :new, :create]
   before_action :set_professional, only: [:show]
   before_action :set_salons, only: [:new, :create, :show]
-  layout "salons"
+
+  def index
+    policy_scope(Salon)
+    @professionals = @salon.professionals.includes(:services, :bookings)
+  end
 
   def show
     @diplomas = @professional.diplomas
@@ -41,6 +46,6 @@ class ProfessionalsController < ApplicationController
   end
 
   def professional_params
-    params.require(:professional).permit(:first_name, :last_name, :trainings, :experiences, service_ids: [])
+    params.require(:professional).permit(:first_name, :last_name, :trainings, :experiences, :photo, service_ids: [])
   end
 end

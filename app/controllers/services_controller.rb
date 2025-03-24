@@ -1,18 +1,21 @@
 class ServicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_salon, only: [:new, :create]
+  before_action :set_salon, only: [:index, :new, :create]
+
+  def index
+    @services = policy_scope(Service).where(salon: @salon)
+  end
 
   def new
-    @service = @salon.services.new
+    @service = Service.new(salon: @salon)
+    authorize @service
   end
 
   def create
-    @service = @salon.services.build(service_params)
+    @service = Service.new(service_params.merge(salon: @salon))
+    authorize @service
     if @service.save
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to salon_path(@salon), notice: "Service ajouté avec succès." }
-      end
+      redirect_to salon_services_path(@salon), notice: "Service créé avec succès."
     else
       render :new, status: :unprocessable_entity
     end

@@ -26,6 +26,7 @@ class SalonsController < ApplicationController
   end
 
   def show
+    @salon = Salon.find(params[:id])
     @salons = Salon.all
     @services = @salon.services
     @professional_services = @salon.professional_services.includes(:service)

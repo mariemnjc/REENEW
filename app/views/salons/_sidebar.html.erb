@@ -1,25 +1,52 @@
-<h2>Salons</h2>
+<aside class="sidebar p-3">
+  <h2>Salons</h2>
 
-<!-- Dropdown pour sélectionner un salon -->
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <%= @salon&.name || "Aucun salon disponible" %>
-  </button>
-  <ul class="dropdown-menu">
-    <% @salons.each do |salon| %>
+  <!-- Dropdown salon -->
+  <div class="dropdown mb-3">
+    <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="salonDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <%= @salon&.name || "Sélectionner un salon" %>
+    </button>
+    <ul class="dropdown-menu w-100" aria-labelledby="salonDropdown">
+      <% if @salons.present? %>
+        <% @salons.each do |salon| %>
+          <li><%= link_to salon.name, salon_path(salon), class: "dropdown-item" %></li>
+        <% end %>
+      <% end %>
       <li>
-        <%= link_to salon.name, salon_path(salon), class: "dropdown-item" %>
+        <%= link_to "Ajouter un salon", new_salon_path, class: "dropdown-item" %>
       </li>
-    <% end %>
-    <li>
-      <%= link_to "Ajouter un salon", new_salon_path, class: "dropdown-item" %>
-    </li>
-  </ul>
- <ul class="sidebar-links">
-  <li><%= link_to "Dashboard", dashboard_salon_path(@salon), class: "btn btn-light" %></li>
-  <li><%= link_to "Réservations", salon_bookings_path(@salon), class: "btn btn-light" %></li>
-  <li><%= link_to "Professionnels", salon_professionals_path(@salon), class: "btn btn-light" %></li>
-  <li><%= link_to "Services", salon_services_path(@salon), class: "btn btn-light" %></li>
-</ul>
+    </ul>
+  </div>
 
-</div>
+  <!-- Bloc 1 : Prise de rendez-vous -->
+  <div class="list-group mb-3">
+    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#rendezvousMenu" role="button" aria-expanded="false" aria-controls="rendezvousMenu">
+      📅 Prise de rendez-vous
+    </a>
+    <div class="collapse ms-3" id="rendezvousMenu">
+      <a class="list-group-item list-group-item-action" href="<%= salon_bookings_path(@salon) %>">Agenda / Réservations</a>
+    </div>
+  </div>
+
+  <!-- Bloc 2 : Gestion de boutique -->
+  <div class="list-group mb-3">
+    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#boutiqueMenu" role="button" aria-expanded="false" aria-controls="boutiqueMenu">
+      🏪 Gestion de boutique
+    </a>
+    <div class="collapse ms-3" id="boutiqueMenu">
+      <a class="list-group-item list-group-item-action" href="<%= salon_professionals_path(@salon) %>">Professionnels</a>
+      <a class="list-group-item list-group-item-action" href="<%= salon_services_path(@salon) %>">Services</a>
+    </div>
+  </div>
+
+  <!-- Bloc 3 : Clients -->
+  <div class="list-group">
+    <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#clientsMenu" role="button" aria-expanded="false" aria-controls="clientsMenu">
+      👥 Clients
+    </a>
+    <div class="collapse ms-3" id="clientsMenu">
+      <a class="list-group-item list-group-item-action" href="#">Abonnements & Fidélité</a>
+      <a class="list-group-item list-group-item-action" href="#">Liste des clients</a>
+    </div>
+  </div>
+</aside>
