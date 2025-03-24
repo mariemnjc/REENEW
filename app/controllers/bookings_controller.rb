@@ -1,17 +1,25 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_salon
+  # before_action :set_salon
   # before_action :authorize_salon
 
   def index
-    # Récupérer les réservations pour le salon, après autorisation
+    if params[:id].present?             # filtre pour le coté pro
+    @salon = Salon.find(params[:id])
     @bookings = policy_scope(Booking).where(salon_id: @salon.id)
+    else
+    # Réservation pour le coté user
+    @bookings = policy_scope(Booking)
+    render :profil_bookings
+    end
+    # .where(salon_id: @salon.id)
     # @bookings = policy_scope(Booking)
     # authorize @bookings
   end
 
   def show
     # Action vide pour l'instant
+
   end
 
   def new
@@ -20,10 +28,22 @@ class BookingsController < ApplicationController
     @professional_service = ProfessionalService.find(params[:professional_service_id])
     @professional = @professional_service.professional
     @service = @professional_service.service
-
-    start_time = Time.new(2025, 3, 20, 8, 0, 0)  # Exemple de créneaux horaires
-    end_time = Time.new(2025, 3, 20, 18, 0, 0)
+   # Slots du jour
+    start_time = Time.now.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time = Time.now.beginning_of_day+64800
     @slots = (start_time.to_i..end_time.to_i).step(3600).map do |t|
+      [Time.at(t).strftime("%H:%M"), Time.at(t)]
+    end
+    # Slot du lendemain
+    start_time = Time.now.tomorrow.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time = Time.now.tomorrow.beginning_of_day+64800
+    @slots_tomorrow = (start_time.to_i..end_time.to_i).step(3600).map do |t|
+      [Time.at(t).strftime("%H:%M"), Time.at(t)]
+    end
+    # Slot j+2
+    start_time = 2.day.from_now.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time = 2.day.from_now.beginning_of_day+64800
+    @slots_j2 = (start_time.to_i..end_time.to_i).step(3600).map do |t|
       [Time.at(t).strftime("%H:%M"), Time.at(t)]
     end
   end
@@ -34,10 +54,16 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.professional_service = @professional_service
     authorize @booking
-
+    start_time = Time.now.beginning_of_day+28800  # Exemple de créneaux horaires
+    end_time = Time.now.beginning_of_day+64800
+    @slots = (start_time.to_i..end_time.to_i).step(3600).map do |t|
+      [Time.at(t).strftime("%H:%M"), Time.at(t)]
+    end
     if @booking.save
-      redirect_to bookings_path, notice: "Réservation validée"
+      redirect_to  profil_path, notice: "Réservation validée"
     else
+    @professional = @professional_service.professional
+    @service = @professional_service.service
       render :new, status: :unprocessable_entity
     end
   end
@@ -65,7 +91,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:start_date, :end_date, :status)
+    params.require(:booking).permit(:start_date)
   end
 
   def set_salon

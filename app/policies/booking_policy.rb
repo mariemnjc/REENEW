@@ -2,7 +2,7 @@ class BookingPolicy < ApplicationPolicy
   # User voit que les bookings  de ses salons
   class Scope < Scope
     def resolve
-      @scope.all
+      scope.where(user: user)
     end
   end
 
@@ -17,6 +17,7 @@ class BookingPolicy < ApplicationPolicy
 
   # L'utilisateur peut créer une réservation pour son propre salon
   def create?
-    user == record.salon.user
+    # user == record.salon.user
+    true
   end
 end
