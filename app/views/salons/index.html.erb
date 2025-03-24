@@ -2,11 +2,14 @@
   <!-- Début du filter cards -->
   <div class="filter-component">
     <div class="filter-container"  id="search" style="width: 250px;">
-      <div class="justify-content-between align-items-center">
-        <i class="fa-solid fa-sliders"></i>
-        <% @service_categories.each do |service_category| %>
-          <span><% service_category %></span>
-        <% end %>
+          <div class="filters">
+            <%= form_with url: salons_path, method: :get, local: true, class: "filter-form" do %>
+            <%= hidden_field_tag :location, params[:location].presence || "Paris" %>
+            <%= select_tag :style, options_for_select(@service_categories,params[:style].presence || "Tous"), class: "filter-select" %>
+            <%= select_tag :date_range, options_for_select(["Aujourd'hui", "Dans les 3 jours", "Cette semaine"], params[:date_range].presence || "Tous"), class: "filter-select" %>
+            <%= submit_tag "Filtrer", class: "filter-submit" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -18,6 +21,11 @@
         <div class="card-salon" >
           <%= link_to salon_path(salon), class: 'text-decoration-none' do %>
             <div class="card-body">
+            <% if salon.certified? %>
+              <div class="certified">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+            <% end %>
               <% if salon.photo.attached? %>
                 <%= cl_image_tag salon.photo.variant(resize_to_fill: [100, 200]), width: 200, height: 100 %>
               <% else %>
