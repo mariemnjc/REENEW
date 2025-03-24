@@ -7,7 +7,22 @@
 @import "bootstrap";
 @import "font-awesome";
 
-// Your CSS partials
+// Components & Pages
 @import "components/index";
 @import "pages/index";
 @import "pages/salons";
+
+// Global layout rules
+body {
+  padding-top: 60px; // pour laisser de la place à la navbar fixed
+  margin: 0;
+  font-family: 'Helvetica', sans-serif;
+  background-color: #fefefe;
+}
+
+.main-content {
+  margin-left: 250px; // match la sidebar fixed
+  padding: 40px 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+}

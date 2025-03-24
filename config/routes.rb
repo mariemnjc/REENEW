@@ -14,12 +14,12 @@ Rails.application.routes.draw do
   resources :salons, except: [:destroy] do
     resources :bookings, only: [:index]
     # Gestion des professionnels dans un salon
-    resources :professionals, only: [:new, :create] do
+    resources :professionals, only: [:index, :new, :create] do
       resources :diplomas, only: [:index, :new, :create] # Diplômes associés aux professionnels
     end
 
     # Gestion des services d’un salon (nester ici pour bien associer aux salons)
-    resources :services, only: [:new, :create]
+    resources :services, only: [:index, :new, :create]
   end
 
   # Gestion des professionnels (détail d’un professionnel)

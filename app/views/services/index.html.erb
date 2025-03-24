@@ -1,13 +1,30 @@
-<%= turbo_frame_tag "dashboard_panel" do %>
-  <h2>Liste des Professionnels</h2>
-  <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), data: { turbo_frame: "dashboard_panel" } %>
+<div class="salons-container">
+  <aside class="sidebar">
+    <%= render "salons/sidebar" %>
+  </aside>
 
-  <ul>
-    <% @salon.professionals.each do |pro| %>
-      <li>
-        <strong><%= pro.first_name %> <%= pro.last_name %></strong>
-        - <%= pro.experience %> ans d'expérience
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  <main class="main-content">
+    <h2>Services proposés dans <%= @salon.name %></h2>
+
+    <%= link_to "Ajouter un service", new_salon_service_path(@salon), class: "btn btn-primary mb-4" %>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Catégorie</th>
+          <th>Prix (€)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @services.each do |service| %>
+          <tr>
+            <td><%= service.name %></td>
+            <td><%= service.category %></td>
+            <td><%= service.price %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </main>
+</div>
