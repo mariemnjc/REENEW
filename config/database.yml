@@ -80,5 +80,5 @@ test:
 production:
   <<: *default
   database: reenew_production
-  username: reenew
+  username:
   password: <%= ENV["REENEW_DATABASE_PASSWORD"] %>
