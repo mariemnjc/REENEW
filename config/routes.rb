@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   # Gestion du profil utilisateur
   resources :users, only: [:show, :update]
+  resources :bookings, only: [:index]
   # Salons - Création et gestion des établissements
   resources :salons, except: [:destroy] do
-    resources :bookings, only: [:index]
     # Gestion des professionnels dans un salon
     resources :professionals, only: [:index, :new, :create] do
       resources :diplomas, only: [:index, :new, :create] # Diplômes associés aux professionnels

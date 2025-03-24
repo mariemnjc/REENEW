@@ -3,6 +3,8 @@ class PagesController < ApplicationController
 
   def profil
     # a utiliser pour afficher les résas des users
+    @bookings = policy_scope(Booking)
+    render :profil_bookings
   end
 
   def home
