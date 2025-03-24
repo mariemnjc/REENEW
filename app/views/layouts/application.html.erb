@@ -15,7 +15,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body><%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
+<head>
+  <!-- Ajouter FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet" />
+
+  <!-- Autres balises meta et styles -->
+</head>
+
+ <body class="<%= yield :body_class %>">
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
     <%= yield %>

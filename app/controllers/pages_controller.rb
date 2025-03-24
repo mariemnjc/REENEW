@@ -14,11 +14,4 @@ class PagesController < ApplicationController
       redirect_to search_path
     end
   end
-
-  def search
-    @salons = Salon.all
-    @bookings = Booking.all
-    @services = Service.all
-    @service_categories = Service.all.pluck(:category).uniq
-  end
 end

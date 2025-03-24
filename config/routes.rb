@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   # Home page (US1)
   root to: "pages#home"
-  get "search", to: "pages#search"
   get "profil", to: "pages#profil"
 
   # Health check
@@ -21,9 +20,6 @@ Rails.application.routes.draw do
 
     # Gestion des services d’un salon (nester ici pour bien associer aux salons)
     resources :services, only: [:index, :new, :create]
-
-    # Dashboard pour le propriétaire du salon
-    get "dashboard", on: :member
   end
 
   # Gestion des professionnels (détail d’un professionnel)
@@ -44,6 +40,14 @@ Rails.application.routes.draw do
   resources :salons do
     member do
       get 'bookings'
+    end
+  end
+
+  # Route pour le namespace Pro
+  namespace :pros do
+    resources :salons, only: [:show, :index] do
+      # Dashboard pour le propriétaire du salon
+      get "dashboard", on: :member
     end
   end
 end
