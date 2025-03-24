@@ -1,29 +1,46 @@
-<div class="salons-container">
+<div class="container">
 
-  <main class="main-content">
-    <h1><%= @salon.name %></h1>
-    <p>Adresse : <%= @salon.address %></p>
-    <p>Description : <%= @salon.description %></p>
-    <p>Certifié : <%= @salon.certified ? "Oui" : "Non" %></p>
+  <main class="content">
 
-  <h2>Services proposés :</h2>
-  <ul>
-    <% @professional_services.each do |professional_service| %>
-      <li>
-        <%= professional_service.service.name %> - <%= professional_service.service.price %> €
-        <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn btn-primary" %>
-      </li>
-    <% end %>
-  </ul>
+    <div class="profil-card-pro">
+      <%= cl_image_tag @salon.photo.variant(resize_to_fill: [100, 200]), class:"rounded", width: 200, height: 100 %>
+      <h2><%= @salon.name %></h2>
+      <%= @salon.certified ? "Ce professionnel est certifié Estheticert" : "" %>
+    </div>
 
-
-    <h2>Professionnels :</h2>
+    <h4 class="onglet-nav" >CARTE DES SOINS</h4>
     <ul>
-      <% @salon.professionals.each do |pro| %>
-        <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
+      <% @professional_services.each do |professional_service| %>
+        <li>
+          <%= professional_service.service.name %> - <%= professional_service.service.price %> €
+          <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn btn-primary" %>
+        </li>
       <% end %>
     </ul>
+
+    <h4 class="onglet-nav">RECOMMANDATIONS</h4>
+      <p><%= @salon.average_rating %></p>
+      <% @bookings.each do |booking| %>
+        <p><%= booking.rating %></p>
+        <p><%= booking.review %></p>
+      <% end %>
+
+    <h4 class="onglet-nav">INFORMATIONS GÉNÉRALES</h4>
+      <p><%= @salon.description %></p>
+
+      <h5>ADRESSE</h5>
+        <p><i class="fa-solid fa-location-dot"> </i><%= @salon.address %></p>
+
+      <h5>FORMATION ET EXPÉRIENCE</h5>
+        <% @diplomas.each do |diploma| %>
+          <li><%= diploma.date %> - <%= diploma.title %></li>
+        <% end %>
+
+      <h4>EQUIPE DE SOIN</h4>
+        <ul>
+          <% @salon.professionals.each do |pro| %>
+            <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
+          <% end %>
+        </ul>
   </main>
 </div>
-
-<%= console %>
