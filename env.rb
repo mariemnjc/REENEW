@@ -1,1 +1,0 @@
-CLOUDINARY_URL=cloudinary://641366851299352:sVkomVTS3ISuy2ucEeMcpIPUv34@dpusi66ve

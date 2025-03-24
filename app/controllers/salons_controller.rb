@@ -4,6 +4,7 @@ class SalonsController < ApplicationController
   before_action :set_salons, only: [:dashboard]
 
   def show
+    @salon = Salon.find(params[:id])
     @salons = Salon.all
     @services = @salon.services
     @professional_services = @salon.professional_services.includes(:service)

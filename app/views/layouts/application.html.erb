@@ -2,45 +2,56 @@
 <html>
   <head>
     <title>Reenew</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
 
+    <!-- JS importmap -->
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body><%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
+<head>
   <!-- Ajouter FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet" />
 
-  <%# <script type="text/javascript" src="https://try.abtasty.com/2818c37cf7a3438c1021b369dac8c9a5.js"></script> %>
-  </head>
+  <!-- Autres balises meta et styles -->
+</head>
 
-  <body class="<%= yield :body_class %>">
+ <body class="<%= yield :body_class %>">
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
     <%= yield %>
 
-  <!-- Autres balises meta et styles -->
+    <!-- Bootstrap Bundle JS (avec Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Ajouter FullCalendar JS -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
 
-  <!-- Votre script JavaScript pour configurer FullCalendar -->
-  <script>
-    $(document).ready(function() {
-      $('#calendar').fullCalendar({
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay'
-        },
-        events: '/bookings.json',  // Utilisez cette route pour récupérer les réservations
-        editable: true,
-        droppable: true
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (document.querySelector("#calendar")) {
+          $('#calendar').fullCalendar({
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay'
+            },
+            events: '/bookings.json',
+            editable: true,
+            droppable: true
+          });
+        }
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

@@ -21,7 +21,20 @@
     <%= f.text_area :experience, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :photo %>
+    <%= f.file_field :photo, class: "form-control" %>
+  </div>
   <%= f.submit "Ajouter le professionnel", class: "btn btn-primary" %>
 <% end %>
 
 <%= link_to "Retour au salon", salon_path(@salon), class: "btn btn-secondary" %>
+
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#testCollapse">
+  Test Collapse
+</button>
+<div class="collapse mt-2" id="testCollapse">
+  <div class="card card-body">
+    Bravo, Bootstrap est enfin chargé 🎉
+  </div>
+</div>

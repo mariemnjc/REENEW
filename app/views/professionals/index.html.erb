@@ -6,15 +6,42 @@
   <main class="main-content">
     <h2>Liste des Professionnels</h2>
 
-    <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary" %>
+    <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary mb-4" %>
 
-    <ul>
+    <div class="row">
       <% @salon.professionals.each do |pro| %>
-        <li>
-          <strong><%= pro.first_name %> <%= pro.last_name %></strong>
-          - <%= pro.experience %> ans d'expérience
-        </li>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <% if pro.photo.attached? %>
+              <%= image_tag pro.photo.variant(resize_to_limit: [400, 300]), class: "card-img-top" %>
+            <% else %>
+              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <span class="text-muted">Pas de photo</span>
+              </div>
+            <% end %>
+
+            <div class="card-body">
+              <h5 class="card-title"><%= pro.first_name %> <%= pro.last_name %></h5>
+              <p class="card-text">
+                <strong>Formations :</strong> <%= pro.trainings.presence || "Non renseigné" %><br>
+                <strong>Expérience :</strong> <%= pro.experiences.presence || "Non renseignée" %> ans<br>
+                <strong>Services :</strong>
+                <% if pro.services.any? %>
+                  <ul>
+                    <% pro.services.each do |service| %>
+                      <li><%= service.name %> (<%= service.category %>)</li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  Aucun service associé.
+                <% end %>
+                <strong>Nombre de clients :</strong> <%= pro.bookings.count %>
+              </p>
+              <%= link_to "Voir", professional_path(pro), class: "btn btn-outline-secondary btn-sm" %>
+            </div>
+          </div>
+        </div>
       <% end %>
-    </ul>
+    </div>
   </main>
 </div>
