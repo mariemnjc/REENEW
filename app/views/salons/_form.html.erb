@@ -24,5 +24,10 @@
     <%= f.text_field :opening_hour, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :photo %>
+    <%= f.file_field :photo, class: "form-control" %>
+  </div>
+
   <%= f.submit salon.persisted? ? "Mettre à jour" : "Créer", class: "btn btn-success" %>
 <% end %>
