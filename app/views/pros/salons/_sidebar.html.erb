@@ -25,7 +25,7 @@
     </a>
     <div class="collapse ms-3" id="rendezvousMenu">
       <% if @salon.present? %>
-        <%= link_to "Agenda / Réservations", salon_bookings_path(@salon), class: "list-group-item list-group-item-action" %>
+        <%= link_to "Agenda / Réservations", pros_salon_bookings_path(@salon), class: "list-group-item list-group-item-action" %>
       <% else %>
         <span class="list-group-item text-muted">Aucun salon sélectionné</span>
       <% end %>

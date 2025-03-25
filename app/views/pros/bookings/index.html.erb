@@ -1,0 +1,17 @@
+<div class="salons-container">
+
+  <main class="main-content">
+<h2>Planning des Réservations pour le salon <%= @salon.name %></h2>
+<%= month_calendar events: @bookings, attribute: :start_date do |date, bookings| %>
+  <div>
+    <strong><%= date.strftime("%d %b") %></strong>
+    <% bookings.each do |booking| %>
+      <div class="booking">
+        Réservation: <%= booking.user.first_name rescue "Client" %><br>
+        Du <%= booking.start_date.strftime("%d/%m") %> au <%= booking.end_date.strftime("%d/%m") %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+  </main>
+</div>
