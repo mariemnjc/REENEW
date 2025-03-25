@@ -25,6 +25,7 @@ p {
   margin: 5px;
   font-size: 16px;
   padding-left: 15px;
+  border: none;
 }
 
 .nav-card {
@@ -34,6 +35,8 @@ p {
   color: #6A38FF;
   font-size: 16px;
   padding-left: 8px;
+  border-radius: 5px;
+  border: none;
 }
 
 .btn-select {
@@ -44,8 +47,29 @@ p {
   font-size: 14px;
   text-decoration: none;
   border-radius: 10px;
+  position: relative;
+  bottom: 30px;
+  left: 210px;
 }
 
 .btn-select:hover {
-  background: #7961c1;
+  background: #5f37da;
+}
+
+#navbar {
+  position: absolute;
+}
+
+.list_services {
+  list-style: none;
+}
+
+#certified {
+  color: #6A38FF;
+  font-weight: 400;
+}
+
+#price_tag {
+  color: rgb(109, 109, 109);
+  font-size: 12px;
 }
