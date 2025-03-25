@@ -6,7 +6,6 @@
             <%= form_with url: salons_path, method: :get, local: true, class: "filter-form" do %>
             <%= hidden_field_tag :location, params[:location].presence || "Paris" %>
             <%= select_tag :style, options_for_select(@service_categories,params[:style].presence || "Tous"), class: "filter-select" %>
-            <%= select_tag :date_range, options_for_select(["Aujourd'hui", "Dans les 3 jours", "Cette semaine"], params[:date_range].presence || "Tous"), class: "filter-select" %>
             <%= submit_tag "Filtrer", class: "filter-submit" %>
           <% end %>
         </div>

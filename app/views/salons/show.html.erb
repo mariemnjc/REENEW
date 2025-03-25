@@ -40,16 +40,16 @@
             <% end %>
           </ul>
         <p> 💅🏼 Parcours professionnel</p>
-          <ul>
+          <%# <ul>
             <% if @professional.experiences.present? %>
-              <% @professional.experiences.split(', ').each do |experience|  %>
-                 <li> <span class="badge bg-primary m-1"><%= experience %></span></li>
-              <% end %>
-            </ul>
-          <% else %>
-            <p>Aucune expérience renseignée.</p>
-          <% end %>
-          </ul>
+              <%# <% @professional.experiences.split(', ').each do |experience|  %>
+                 <%# <li> <span class="badge bg-primary m-1"><%= experience</span></li> %>
+              <%# <% end %>
+            <%# </ul> %>
+          <%# <% else %>
+            <%# <p>Aucune expérience renseignée.</p> %>
+          <%# <% end %>
+          <%# </ul> %>
 
       <h4 class="nav-card">EQUIPE DE SOIN</h4>
         <ul>
