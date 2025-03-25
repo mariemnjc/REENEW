@@ -1,7 +1,7 @@
 class Pros::SalonsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_salon, only: [:show, :edit, :update, :dashboard, :bookings]
-  before_action :set_salons, only: [:dashboard, :index]
+  before_action :set_salon, only: [:show, :edit, :update, :bookings]
+  before_action :set_salons, only: [:index]
   layout "pros/salons"
 
   def index
