@@ -1,27 +1,29 @@
 <div class="container text-center">
   <h1>Votre Réservation</h1>
   <div class="form-control">
-    <p><%= @service.name %></p>
-    <p><%= @professional.first_name %></p>
 
 
-<%= console %>
+    <label class="form-label"><strong>Votre soin</strong></label>
+    <input class="form-control text-center" type="text" value="<%= @service.name %>" aria-label="Disabled input example" disabled readonly>
+    <label class="form-label"><strong>Avec</strong></label>
+    <input class="form-control text-center" type="text" value="<%= @professional.first_name %>" aria-label="Disabled input example" disabled readonly>
 
     <%= simple_form_for [@professional_service, @booking] do |f| %>
-    <p><%= Date.today.strftime(("%d/%m/%Y")) %></p>
+
+      <p class="marge"><%= Date.today.strftime(("%d/%m/%Y")) %></p>
       <%= f.collection_radio_buttons(:start_date, @slots, :last, :first) do |b|
         b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary")
       end %>
-      <p><%= Date.tomorrow.strftime(("%d/%m/%Y")) %></p>
+      <p class="marge"><%= Date.tomorrow.strftime(("%d/%m/%Y")) %></p>
       <%= f.collection_radio_buttons(:start_date, @slots_tomorrow, :last, :first) do |b|
         b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary")
       end %>
-      <p><%= 2.day.from_now.strftime(("%d/%m/%Y")) %></p>
+      <p class="marge"><%= 2.day.from_now.strftime(("%d/%m/%Y")) %></p>
       <%= f.collection_radio_buttons(:start_date, @slots_j2, :last, :first) do |b|
         b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary")
       end %>
     <br>
-      <%= f.button :submit, "Valider", class: "btn btn-primary" %>
+      <%= f.button :submit, "Valider", class: "d-grid gap-2 col-6 mx-auto marge btn btn-primary" %>
     <% end %>
   </div>
 </div>
