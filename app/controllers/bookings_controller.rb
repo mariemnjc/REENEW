@@ -10,7 +10,6 @@ class BookingsController < ApplicationController
 
   def show
     # Action vide pour l'instant
-
   end
 
   def new
