@@ -5,9 +5,9 @@ class BookingsController < ApplicationController
 
   def index
     # Récupérer les réservations pour le salon, après autorisation
-    @bookings = policy_scope(Booking).where(salon_id: @salon.id)
-    # @bookings = policy_scope(Booking)
-    # authorize @bookings
+    @bookings = policy_scope(Booking)
+    .joins(professional_service: :professional)
+    .where(professionals: { salon_id: @salon.id })
   end
 
   def show
