@@ -1,46 +1,62 @@
 <div class="container">
 
-  <main class="content">
+  <main class="card-show-content">
 
-    <div class="profil-card-pro">
+    <div class="profil-card-pro text-center">
       <%= cl_image_tag @salon.photo.variant(resize_to_fill: [100, 200]), class:"rounded", width: 200, height: 100 %>
       <h2><%= @salon.name %></h2>
       <%= @salon.certified ? "Ce professionnel est certifié Estheticert" : "" %>
     </div>
 
-    <h4 class="onglet-nav" >CARTE DES SOINS</h4>
-    <ul>
-      <% @professional_services.each do |professional_service| %>
-        <li>
-          <%= professional_service.service.name %> - <%= professional_service.service.price %> €
-          <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn btn-primary" %>
-        </li>
-      <% end %>
-    </ul>
+    <div class="card-pro">
+      <h4 class="onglet-nav" >CARTE DES SOINS</h4>
+      <ul>
+        <% @professional_services.each do |professional_service| %>
+          <li>
+            <%= professional_service.service.name %> - <%= professional_service.service.price %> €
+            <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn btn-primary" %>
+          </li>
+        <% end %>
+      </ul>
 
-    <h4 class="onglet-nav">RECOMMANDATIONS</h4>
-      <p><%= @salon.average_rating %></p>
-      <% @bookings.each do |booking| %>
-        <p><%= booking.rating %></p>
-        <p><%= booking.review %></p>
-      <% end %>
-
-    <h4 class="onglet-nav">INFORMATIONS GÉNÉRALES</h4>
-      <p><%= @salon.description %></p>
-
-      <h5>ADRESSE</h5>
-        <p><i class="fa-solid fa-location-dot"> </i><%= @salon.address %></p>
-
-      <h5>FORMATION ET EXPÉRIENCE</h5>
-        <% @diplomas.each do |diploma| %>
-          <li><%= diploma.date %> - <%= diploma.title %></li>
+      <h4 class="onglet-nav">RECOMMANDATIONS</h4>
+        <p><%= @salon.average_rating %></p>
+        <% @bookings.each do |booking| %>
+          <p><%= booking.rating %></p>
+          <p><%= booking.review %></p>
         <% end %>
 
-      <h4>EQUIPE DE SOIN</h4>
+      <h4 class="onglet-nav">INFORMATIONS GÉNÉRALES</h4>
+        <p><%= @salon.description %></p>
+
+        <h5 class="nav-card">ADRESSE</h5>
+          <p>📍 </i><%= @salon.address %></p>
+
+        <h5 class="nav-card">FORMATION ET EXPÉRIENCE</h5>
+        <p> 🎓 Parcours académique</p>
+          <ul>
+            <% @diplomas.each do |diploma| %>
+              <li><%= diploma.date %> - <%= diploma.title %></p></li>
+            <% end %>
+          </ul>
+        <p> 💅🏼 Parcours professionnel</p>
+          <%# <ul>
+            <% if @professional.experiences.present? %>
+              <%# <% @professional.experiences.split(', ').each do |experience|  %>
+                 <%# <li> <span class="badge bg-primary m-1"><%= experience</span></li> %>
+              <%# <% end %>
+            <%# </ul> %>
+          <%# <% else %>
+            <%# <p>Aucune expérience renseignée.</p> %>
+          <%# <% end %>
+          <%# </ul> %>
+
+      <h4 class="nav-card">EQUIPE DE SOIN</h4>
         <ul>
           <% @salon.professionals.each do |pro| %>
-            <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
+            <li><p><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></p></li>
           <% end %>
         </ul>
+    </div>
   </main>
 </div>
