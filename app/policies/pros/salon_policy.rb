@@ -11,11 +11,6 @@ class Pros::SalonPolicy < ApplicationPolicy
     true
   end
 
-  # Autorise l'accès au dashboard du salon
-  def dashboard?
-    true
-  end
-
   # Voir un salon spécifique
   def show?
     true
