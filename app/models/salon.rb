@@ -5,7 +5,9 @@ class Salon < ApplicationRecord
   has_many :services, through: :professional_services # me donne @salon.services
   has_many :bookings, through: :professional_services
   has_one_attached :photo
-
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+  
   def average_rating
     self.bookings.average(:rating)
   end

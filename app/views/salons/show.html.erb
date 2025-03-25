@@ -36,6 +36,16 @@
               <li><%= diploma.date %> - <%= diploma.title %></p></li>
             <% end %>
           </ul>
+        <p> 💅🏼 Parcours professionnel</p>
+          <ul>
+            <% unless @professionals.any? {|professional|professional.experiences} %>
+              <p>Aucune expérience renseignée.</p>
+            <% end %>
+            <% @professionals.each do |professional| %>
+              <% next unless professional.experiences %>
+              <li><%= professional.experiences %></li>
+            <% end %>
+          </ul>
 
       <h4 class="nav-card">EQUIPE DE SOIN</h4>
         <ul>
