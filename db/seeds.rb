@@ -4,8 +4,8 @@ puts "Nettoyage DB..."
 Booking.destroy_all
 ProfessionalService.destroy_all
 Service.destroy_all
-Professional.destroy_all
 Diploma.destroy_all
+Professional.destroy_all
 Salon.destroy_all
 User.destroy_all
 
@@ -66,7 +66,34 @@ services_data = [
   { name: "Cours d'auto-maquillage", category: "Maquillage", price: 65 }
 ]
 
-services_data.each do |s|
+puts "Création des professionnels pour le premier salon..."
+professionals = [
+  {first_name: "Marie", last_name: "Dupont", trainings: "CAP Esthétique, BTS Esthétique", experiences: "5 ans d'expérience", salon_id: salons.first.id},
+  {first_name: "Sophie", last_name: "Martin", trainings: "CAP Esthétique, BTS Esthétique", experiences: "3 ans d'expérience", salon_id: salons.first.id},
+  {first_name: "Julie", last_name: "Lefevre", trainings: "CAP Esthétique, BTS Esthétique", experiences: "7 ans d'expérience", salon_id: salons.first.id}
+]
+
+puts " Création des diplômes pour le premier professionnel..."
+diplomas = [
+  { title: "CAP Esthétique", date: "2015" },
+  { title: "BTS Esthétique", date: "2017" },
+  { title: "Certificat de maquillage", date: "2019" }
+]
+
+puts "Création des professionnels et de leurs diplômes..."
+created_professionals = []
+
+professionals.each do |p|
+  professional = Professional.create!(p)
+  created_professionals << professional
+
+  diplomas.each do |d|
+    Diploma.create!(d.merge(professional: professional))
+  end
+end
+
+puts 'Création des services pour le premier salon...'
+created_services = services_data.map do |s|
   Service.create!(
     name: s[:name],
     category: s[:category],
@@ -74,5 +101,38 @@ services_data.each do |s|
     salon: salons.first
   )
 end
+
+puts "Création des liens entre pro et services..."
+created_professionals.each do |pro|
+  created_services.sample(2).each do |service|
+    ProfessionalService.create!(
+      professional: pro,
+      service: service
+    )
+  end
+end
+
+# puts "Création de réservations..."
+# bookings.each do |b|
+#   Booking.create!(
+#     rating: b[:rating],
+#     review: b[:review],
+#     user: admin,
+#     professional_service: ProfessionalService.all.sample,
+#     start_date: Date[:start_date],
+#     end_date: b[:end_date]
+#   )
+# end
+# t.integer "rating"
+# t.text "review"
+# t.bigint "user_id", null: false
+# t.datetime "created_at", null: false
+# t.datetime "updated_at", null: false
+# t.bigint "professional_service_id"
+# t.datetime "start_date"
+# t.datetime "end_date"
+# t.index ["professional_service_id"], name: "index_bookings_on_professional_service_id"
+# t.index ["user_id"], name: "index_bookings_on_user_id"
+
 
 puts "Seed des services et salons terminée avec succès."
