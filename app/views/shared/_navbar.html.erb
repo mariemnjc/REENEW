@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon navbar-futuristic">
   <div class="container-fluid">
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= cl_image_tag("Logo_Reenew", crop: :fit, class: "navbar-logo") %>
@@ -17,7 +17,6 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= current_user.first_name.presence || current_user.first_name %>
             </a>
-
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Éditer mon profil", edit_user_registration_path, class: "dropdown-item" %>
               <%= link_to "Espace pro", pros_salons_path, class: "dropdown-item" if current_user.salons.present? %>

@@ -1,7 +1,6 @@
 class SalonsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_salon, only: [:show, :edit, :update, :dashboard, :bookings]
-  before_action :set_salons, only: [:dashboard]
+  before_action :set_salon, only: [:show, :edit, :update, :bookings]
 
   def show
     @salon = Salon.includes(:bookings, :services).find(params[:id])

@@ -25,15 +25,15 @@ class BookingsController < ApplicationController
       [Time.at(t).strftime("%H:%M"), Time.at(t)]
     end
     # Slot du lendemain
-    start_time = Time.now.tomorrow.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time = Time.now.tomorrow.beginning_of_day+64800
-    @slots_tomorrow = (start_time.to_i..end_time.to_i).step(3600).map do |t|
+    start_time_1 = Time.now.tomorrow.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time_1 = Time.now.tomorrow.beginning_of_day+64800
+    @slots_tomorrow = (start_time_1.to_i..end_time_1.to_i).step(3600).map do |t|
       [Time.at(t).strftime("%H:%M"), Time.at(t)]
     end
     # Slot j+2
-    start_time = 2.day.from_now.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time = 2.day.from_now.beginning_of_day+64800
-    @slots_j2 = (start_time.to_i..end_time.to_i).step(3600).map do |t|
+    start_time_2 = 2.day.from_now.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time_2 = 2.day.from_now.beginning_of_day+64800
+    @slots_j2 = (start_time_2.to_i..end_time_2.to_i).step(3600).map do |t|
       [Time.at(t).strftime("%H:%M"), Time.at(t)]
     end
   end
@@ -44,9 +44,23 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.professional_service = @professional_service
     authorize @booking
-    start_time = Time.now.beginning_of_day+28800  # Exemple de créneaux horaires
+
+    # Slots du jour
+    start_time = Time.now.beginning_of_day+28800 # Exemple de créneaux horaires
     end_time = Time.now.beginning_of_day+64800
     @slots = (start_time.to_i..end_time.to_i).step(3600).map do |t|
+      [Time.at(t).strftime("%H:%M"), Time.at(t)]
+    end
+    # Slot du lendemain
+    start_time_1 = Time.now.tomorrow.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time_1 = Time.now.tomorrow.beginning_of_day+64800
+    @slots_tomorrow = (start_time_1.to_i..end_time_1.to_i).step(3600).map do |t|
+      [Time.at(t).strftime("%H:%M"), Time.at(t)]
+    end
+    # Slot j+2
+    start_time_2 = 2.day.from_now.beginning_of_day+28800 # Exemple de créneaux horaires
+    end_time_2 = 2.day.from_now.beginning_of_day+64800
+    @slots_j2 = (start_time_2.to_i..end_time_2.to_i).step(3600).map do |t|
       [Time.at(t).strftime("%H:%M"), Time.at(t)]
     end
     if @booking.save
