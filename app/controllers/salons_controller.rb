@@ -4,19 +4,20 @@ class SalonsController < ApplicationController
   before_action :set_salons, only: [:dashboard]
 
   def show
-    @salon = Salon.find(params[:id])
-    @salons = Salon.all
+    @salon = Salon.includes(:bookings, :services).find(params[:id])
+    authorize @salon
+    @bookings = @salon.bookings
     @services = @salon.services
     @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
-    authorize @salon
+    @diplomas = Diploma.joins(professional: :salon).where(professional: { salon: @salon } )
   end
 
   def index
     @salons = policy_scope(Salon)
     @bookings = Booking.all
     @services = Service.all
-    @service_categories = Service.all.pluck(:category).uniq
+    @service_categories = Service.pluck(:category).uniq
   end
 
   private

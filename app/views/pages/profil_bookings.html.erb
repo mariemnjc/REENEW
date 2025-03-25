@@ -1,0 +1,27 @@
+<%# Vue pour les bookings user %>
+
+
+
+<div class="container">
+<h1 class="text-center">Mes Réservations</h1>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Rendez-vous</th>
+        <th scope="col">Mon Soin</th>
+        <th scope="col">Avec</th>
+        <th scope="col">Salon</th>
+      </tr>
+      <tbody>
+    <% @bookings.each do |booking| %>
+    <tr>
+      <td> Le <%= booking.start_date.day  %>/<%= booking.start_date.month %> à <%= booking.start_date.hour %>H</td>  <%# Heure/date rdv%>
+      <td><%= booking.professional_service.service.name %> - <%= booking.professional_service.service.price %>€</td>  <%# Nom du service/prix%>
+      <td><%= booking.professional_service.professional.first_name %></td>                                           <%# Nom du pro%>
+      <td><%= booking.professional_service.service.salon.name %></td>                                                <%# Nom du salon%>
+    </tr>
+    <% end %>
+  </tbody>
+    </thead>
+  </table>
+</div>
