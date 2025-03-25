@@ -24,7 +24,7 @@
       📅 Prise de rendez-vous
     </a>
     <div class="collapse ms-3" id="rendezvousMenu">
-      <% if @salon.present? %>
+      <% if @salon&.persisted? %>
         <%= link_to "Agenda / Réservations", pros_salon_bookings_path(@salon), class: "list-group-item list-group-item-action" %>
       <% else %>
         <span class="list-group-item text-muted">Aucun salon sélectionné</span>
@@ -38,7 +38,7 @@
       🏪 Gestion de boutique
     </a>
     <div class="collapse ms-3" id="boutiqueMenu">
-      <% if @salon.present? %>
+      <% if @salon&.persisted? %>
         <%= link_to "Professionnels", salon_professionals_path(@salon), class: "list-group-item list-group-item-action" %>
         <%= link_to "Services", salon_services_path(@salon), class: "list-group-item list-group-item-action" %>
       <% else %>
