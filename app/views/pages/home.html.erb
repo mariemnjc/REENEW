@@ -29,10 +29,12 @@
     <div class="professional-sign-up">
       <p>Vous êtes un professionnel ?</p>
       <div class="button-create-salon">
-      <%= link_to "Ajouter un établissement", new_salon_path, class: "btn new-salon" %>
+      <% if current_user %>
+        <%= link_to "Ajouter un établissement", new_salon_path, class: "btn new-salon" %>
+      <% else %>
+        <%= link_to "Ajouter un établissement", new_user_registration_path, class: "btn new-salon" %>
+       <% end %>
       </div>
     </div>
-
-
   </div>
 </div>
