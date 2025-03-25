@@ -1,19 +1,19 @@
-<aside class="sidebar p-3">
+<aside class="sidebar sidebar-salon p-3">
   <h2>Salons</h2>
 
   <!-- Dropdown salon -->
-  <div class="dropdown mb-3">
-    <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="salonDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+  <div class="dropup mb-3">
+    <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="salonDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <%= @salon&.name || "Sélectionner un salon" %>
     </button>
     <ul class="dropdown-menu w-100" aria-labelledby="salonDropdown">
       <% if @salons.present? %>
         <% @salons.each do |salon| %>
-          <li><%= link_to salon.name, salon_path(salon), class: "dropdown-item" %></li>
+          <li><%= link_to salon.name, pros_salon_path(salon), class: "dropdown-item" %></li>
         <% end %>
       <% end %>
       <li>
-        <%= link_to "Ajouter un salon", new_salon_path, class: "dropdown-item" %>
+        <%= link_to "Ajouter un salon", new_pros_salon_path, class: "dropdown-item" %>
       </li>
     </ul>
   </div>
@@ -24,7 +24,11 @@
       📅 Prise de rendez-vous
     </a>
     <div class="collapse ms-3" id="rendezvousMenu">
-      <a class="list-group-item list-group-item-action" href="<%= salon_bookings_path(@salon) %>">Agenda / Réservations</a>
+      <% if @salon&.persisted? %>
+        <%= link_to "Agenda / Réservations", pros_salon_bookings_path(@salon), class: "list-group-item list-group-item-action" %>
+      <% else %>
+        <span class="list-group-item text-muted">Aucun salon sélectionné</span>
+      <% end %>
     </div>
   </div>
 
@@ -34,8 +38,12 @@
       🏪 Gestion de boutique
     </a>
     <div class="collapse ms-3" id="boutiqueMenu">
-      <a class="list-group-item list-group-item-action" href="<%= salon_professionals_path(@salon) %>">Professionnels</a>
-      <a class="list-group-item list-group-item-action" href="<%= salon_services_path(@salon) %>">Services</a>
+      <% if @salon&.persisted? %>
+        <%= link_to "Professionnels", salon_professionals_path(@salon), class: "list-group-item list-group-item-action" %>
+        <%= link_to "Services", salon_services_path(@salon), class: "list-group-item list-group-item-action" %>
+      <% else %>
+        <span class="list-group-item text-muted">Aucun salon sélectionné</span>
+      <% end %>
     </div>
   </div>
 

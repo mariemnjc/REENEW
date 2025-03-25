@@ -6,7 +6,6 @@
             <%= form_with url: salons_path, method: :get, local: true, class: "filter-form" do %>
             <%= hidden_field_tag :location, params[:location].presence || "Paris" %>
             <%= select_tag :style, options_for_select(@service_categories,params[:style].presence || "Tous"), class: "filter-select" %>
-            <%= select_tag :date_range, options_for_select(["Aujourd'hui", "Dans les 3 jours", "Cette semaine"], params[:date_range].presence || "Tous"), class: "filter-select" %>
             <%= submit_tag "Filtrer", class: "filter-submit" %>
           <% end %>
         </div>
@@ -27,9 +26,9 @@
               </div>
             <% end %>
               <% if salon.photo.attached? %>
-                <%= cl_image_tag salon.photo.variant(resize_to_fill: [100, 200]), width: 200, height: 100 %>
+                <%= cl_image_tag salon.photo.key, width: 200, height: 100, crop: :fill%>
               <% else %>
-                <%= cl_image_tag salon.photo.variant(resize_to_fill: [100, 200]), width: 200, height: 100 %>
+                <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 200, height: 100 %>
               <% end %>
                 <br>
                   <h5 class="card-title mb-2"><%= salon.name %></h5>
@@ -40,5 +39,5 @@
               <% end %>
               <% end %>
     </div>
-    <!-- Fin de liste -->
+  <!-- Fin de liste -->
 </div>

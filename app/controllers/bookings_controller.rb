@@ -4,22 +4,12 @@ class BookingsController < ApplicationController
   # before_action :authorize_salon
 
   def index
-    if params[:id].present?             # filtre pour le coté pro
-    @salon = Salon.find(params[:id])
-    @bookings = policy_scope(Booking).where(salon_id: @salon.id)
-    else
-    # Réservation pour le coté user
     @bookings = policy_scope(Booking)
     render :profil_bookings
-    end
-    # .where(salon_id: @salon.id)
-    # @bookings = policy_scope(Booking)
-    # authorize @bookings
   end
 
   def show
     # Action vide pour l'instant
-
   end
 
   def new

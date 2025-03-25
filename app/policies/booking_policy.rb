@@ -2,7 +2,7 @@ class BookingPolicy < ApplicationPolicy
   # User voit que les bookings  de ses salons
   class Scope < Scope
     def resolve
-      scope.where(user: user)
+      scope.all
     end
   end
 

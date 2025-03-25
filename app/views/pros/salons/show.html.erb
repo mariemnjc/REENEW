@@ -1,7 +1,4 @@
 <div class="salons-container">
-  <aside class="sidebar">
-    <%= render "salons/sidebar" %>
-  </aside>
 
   <main class="main-content">
     <h1><%= @salon.name %></h1>
@@ -23,12 +20,7 @@
         <li><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></li>
       <% end %>
     </ul>
-<% if authorize([:pros, Professional, @salon]).new? %>
     <%= link_to "Ajouter un professionnel", new_salon_professional_path(@salon), class: "btn btn-primary" %>
-<% end %>
-
-    <% if authorize([:pros, @salon]).update? %>
-      <%= link_to "Éditer", edit_salon_path(@salon), class: "btn btn-primary" %>
-    <% end %>
+    <%= link_to "Éditer", edit_salon_path(@salon), class: "btn btn-primary" %>
   </main>
 </div>

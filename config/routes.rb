@@ -11,8 +11,12 @@ Rails.application.routes.draw do
   # Gestion du profil utilisateur
   resources :users, only: [:show, :update]
   resources :bookings, only: [:index]
+
   # Salons - Création et gestion des établissements
   resources :salons, except: [:destroy] do
+    collection do
+      get :map
+    end
     # Gestion des professionnels dans un salon
     resources :professionals, only: [:index, :new, :create] do
       resources :diplomas, only: [:index, :new, :create] # Diplômes associés aux professionnels
@@ -45,9 +49,10 @@ Rails.application.routes.draw do
 
   # Route pour le namespace Pro
   namespace :pros do
-    resources :salons, only: [:show, :index] do
+    resources :salons, except: [:destroy] do
       # Dashboard pour le propriétaire du salon
       get "dashboard", on: :member
+      resources :bookings, only: [:index]
     end
   end
 end

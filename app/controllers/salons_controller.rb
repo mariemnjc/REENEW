@@ -10,7 +10,7 @@ class SalonsController < ApplicationController
     @services = @salon.services
     @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
-    @diplomas = Diploma.joins(professional: :salon).where(professional: { salon: @salon } )
+    @diplomas = Diploma.joins(professional: :salon).where(professional: { salon: @salon })
   end
 
   def index
@@ -18,6 +18,16 @@ class SalonsController < ApplicationController
     @bookings = Booking.all
     @services = Service.all
     @service_categories = Service.pluck(:category).uniq
+  end
+
+  def map
+    @salons = Salon.all
+    @markers = @salons.geocoded.map do |salon|
+      {
+        lat: salon.latitude,
+        lng: salon.longitude
+      }
+    end
   end
 
   private
