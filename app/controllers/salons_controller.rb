@@ -10,8 +10,7 @@ class SalonsController < ApplicationController
     @services = @salon.services
     @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
-    @diplomas = Diploma.joins(professional: :salon).where(professional: { salon: @salon } )
-    @experiences = @professionals.experiences
+    @diplomas = Diploma.joins(professional: :salon).where(professional: { salon: @salon } ) 
   end
 
   def index

@@ -1,13 +1,10 @@
 <div class="container">
-
   <main class="card-show-content">
-
     <div class="profil-card-pro text-center">
       <%= cl_image_tag @salon.photo.variant(resize_to_fill: [100, 200]), class:"rounded", width: 200, height: 100 %>
       <h2><%= @salon.name %></h2>
       <%= @salon.certified ? "Ce professionnel est certifié Estheticert" : "" %>
     </div>
-
     <div class="card-pro">
       <h4 class="onglet-nav" >CARTE DES SOINS</h4>
       <ul>
@@ -39,17 +36,6 @@
               <li><%= diploma.date %> - <%= diploma.title %></p></li>
             <% end %>
           </ul>
-        <p> 💅🏼 Parcours professionnel</p>
-          <%# <ul>
-            <% if @professional.experiences.present? %>
-              <%# <% @professional.experiences.split(', ').each do |experience|  %>
-                 <%# <li> <span class="badge bg-primary m-1"><%= experience</span></li> %>
-              <%# <% end %>
-            <%# </ul> %>
-          <%# <% else %>
-            <%# <p>Aucune expérience renseignée.</p> %>
-          <%# <% end %>
-          <%# </ul> %>
 
       <h4 class="nav-card">EQUIPE DE SOIN</h4>
         <ul>

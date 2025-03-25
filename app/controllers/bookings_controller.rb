@@ -14,6 +14,15 @@ class BookingsController < ApplicationController
     end
     # .where(salon_id: @salon.id)
     # @bookings = policy_scope(Booking)
+    # .joins(professional_service: :professional)
+    # .where(professionals: { salon_id: @salon.id })
+    else
+    # Réservation pour le coté user
+    @bookings = policy_scope(Booking)
+    render :profil_bookings
+    end
+    # .where(salon_id: @salon.id)
+    # @bookings = policy_scope(Booking)
     # authorize @bookings
   end
 

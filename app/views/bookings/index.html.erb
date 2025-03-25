@@ -1,45 +1,17 @@
 <div class="salons-container">
-  <aside class="sidebar">
-    <%= render "salons/sidebar" %>
-  </aside>
 
   <main class="main-content">
 <h2>Planning des Réservations pour le salon <%= @salon.name %></h2>
-
-<!-- Section du calendrier -->
-<div id="calendar"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-      },
-      events: function(start, end, timezone, callback) {
-        $.ajax({
-          url: '<%= salon_bookings_path(@salon) %>',  // Utilise la route pour récupérer les événements
-          dataType: 'json',
-          success: function(data) {
-            var events = data.map(function(booking) {
-              return {
-                title: booking.title,
-                start: booking.start,
-                end: booking.end
-              };
-            });
-            callback(events);
-          }
-        });
-      },
-      editable: true,
-      droppable: true  // Permet de déplacer les événements dans le calendrier
-    });
-  });
-</script>
+<%= month_calendar events: @bookings, attribute: :start_date do |date, bookings| %>
+  <div>
+    <strong><%= date.strftime("%d %b") %></strong>
+    <% bookings.each do |booking| %>
+      <div class="booking">
+        Réservation: <%= booking.user.first_name rescue "Client" %><br>
+        Du <%= booking.start_date.strftime("%d/%m") %> au <%= booking.end_date.strftime("%d/%m") %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
   </main>
 </div>

@@ -1,40 +1,24 @@
-<div class="salons-container">
-  <aside class="sidebar">
-    <%= render "salons/sidebar" %>
-  </aside>
+<div class="salons-container d-flex">
 
-  <main class="main-content">
-    <h2>Réservations - <%= @salon.name %></h2>
+  <main class="main-content p-4 w-100">
+    <h2>
+      Réservations
+      <% if @salon.present? %>
+        - <%= @salon.name %>
+      <% else %>
+        - Aucun salon sélectionné
+      <% end %>
+    </h2>
 
-    <!-- Section du calendrier -->
-    <div id="calendar"></div>
+    <% if @salon.present? %>
+      <!-- Section du calendrier -->
+      <div id="calendar" class="mt-4"></div>
 
-    <!-- Intégration de FullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },
-          events: function(start, end, timezone, callback) {
-            $.ajax({
-              url: '<%= salon_bookings_path(@salon) %>',  // Utilise la route pour récupérer les événements
-              dataType: 'json',
-              success: function(data) {
-                var events = data.map(function(booking) {
-                  return {
-                    title: booking.title,
-                    start: booking.start,
-                    end: booking.end
-                  };
-                });
-                callback(events);
-              }
-            });
-          },
-          editabl
+    <% else %>
+      <div class="alert alert-info mt-4">
+        Vous n'avez pas encore sélectionné de salon.<br>
+        <%= link_to "Ajouter un salon", new_pros_salon_path, class: "btn btn-primary mt-2" %>
+      </div>
+    <% end %>
+  </main>
+</div>

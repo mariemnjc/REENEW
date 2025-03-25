@@ -4,17 +4,17 @@
   overflow: hidden;
 }
 
-.sidebar {
+.sidebar-salon {
   width: 250px;
   background: #f8f9fa;
   padding: 20px;
-  position: fixed;
-  left: 0;
+  // position: fixed;
+  // left: 0;
   top: 60px;
   height: 100vh;
-  overflow-y: auto;
+  // overflow-y: auto;
   border-right: 2px solid #ddd;
-  z-index: 500;
+  z-index: 2;
 }
 
 .main-content {
@@ -24,10 +24,9 @@
   overflow-y: auto;
 }
 
-.dropdown-menu {
-  position: absolute !important;
-  top: 100% !important;
-  left: 0;
-  width: 100%;
-  z-index: 1050;
-}
+// .dropdown-menu {
+//   top: 100% !important;
+//   left: 0;
+//   width: 100%;
+//   z-index: 1000 !important;
+// }
