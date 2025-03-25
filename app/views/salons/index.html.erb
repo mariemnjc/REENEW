@@ -4,12 +4,15 @@
     <div class="filter-container"  id="search" style="width: 250px;">
           <div class="filters">
             <%= form_with url: salons_path, method: :get, local: true, class: "filter-form" do %>
-            <%= hidden_field_tag :location, params[:location].presence || "Paris" %>
+            <%= hidden_field_tag :location, params[:location].presence %>
             <%= select_tag :style, options_for_select(@service_categories,params[:style].presence || "Tous"), class: "filter-select" %>
             <%= submit_tag "Filtrer", class: "filter-submit" %>
           <% end %>
         </div>
       </div>
+    </div>
+    <div class="btn-map">
+    <%= link_to "Carte", map_salons_path %>
     </div>
   </div>
     <!-- Fin du filter cards -->

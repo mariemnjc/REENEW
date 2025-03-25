@@ -1,7 +1,6 @@
 class SalonsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_salon, only: [:show, :edit, :update, :dashboard, :bookings]
-  before_action :set_salons, only: [:dashboard]
+  before_action :set_salon, only: [:show, :edit, :update, :bookings]
 
   def show
     @salon = Salon.includes(:bookings, :services).find(params[:id])
@@ -21,7 +20,8 @@ class SalonsController < ApplicationController
   end
 
   def map
-    @salons = Salon.all
+    @salons = policy_scope(Salon)
+    authorize @salons
     @markers = @salons.geocoded.map do |salon|
       {
         lat: salon.latitude,
@@ -34,10 +34,6 @@ class SalonsController < ApplicationController
 
   def set_salon
     @salon = Salon.find(params[:id])
-  end
-
-  def set_salons
-    @salons = Salon.all
   end
 
   def salon_params
