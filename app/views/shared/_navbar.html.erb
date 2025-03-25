@@ -4,7 +4,7 @@
       <%= cl_image_tag("Logo_Reenew", crop: :fit, class: "navbar-logo") %>
     <% end %>
 
-    <%= link_to "Créer un salon", user_signed_in? ? pros_salons_path : new_user_session_path, class: "btn btn-primary ms-auto" %>
+    <%= link_to "Créer un salon", user_signed_in? ? new_pros_salon_path : new_user_session_path, class: "btn btn-primary ms-auto" %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

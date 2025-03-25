@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_with model: salon, local: true do |f| %>
+  <%= form_with model: [:pros, @salon], local: true do |f| %>
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
@@ -23,6 +23,11 @@
     <div class="form-group">
       <%= f.label :opening_hour %>
       <%= f.text_field :opening_hour, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :photo %>
+      <%= f.file_field :photo, class: "form-control" %>
     </div>
 
     <%= f.submit salon.persisted? ? "Mettre à jour" : "Créer", class: "btn btn-success" %>

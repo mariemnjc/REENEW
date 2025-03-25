@@ -1,7 +1,7 @@
 <div class="container">
   <main class="card-show-content">
     <div class="profil-card-pro text-center">
-      <%= cl_image_tag @salon.photo.variant(resize_to_fill: [100, 200]), class:"rounded", width: 200, height: 100 %>
+      <%= cl_image_tag @salon.photo.key, class:"rounded", width: 200, height: 100, crop: :fill %>
       <h2><%= @salon.name %></h2>
       <%= @salon.certified ? "Ce professionnel est certifié Estheticert" : "" %>
     </div>
