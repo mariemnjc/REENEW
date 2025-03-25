@@ -35,3 +35,17 @@ p {
   font-size: 16px;
   padding-left: 8px;
 }
+
+.btn-select {
+  background: #6A38FF;
+  color: white;
+  padding: 8px;
+  margin: 5px;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.btn-select:hover {
+  background: #7961c1;
+}

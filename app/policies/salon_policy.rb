@@ -15,6 +15,10 @@ class SalonPolicy < ApplicationPolicy
     true
   end
 
+  def map?
+    true
+  end
+
   # Voir un salon spécifique
   def show?
     true

@@ -4,23 +4,20 @@
     <p><%= @service.name %></p>
     <p><%= @professional.first_name %></p>
 
-
-<%= console %>
-
     <%= simple_form_for [@professional_service, @booking] do |f| %>
-    <p><%= Date.today.strftime(("%d/%m/%Y")) %></p>
-      <%= f.collection_radio_buttons(:start_date, @slots, :last, :first) do |b|
-        b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary")
-      end %>
+      <p><%= Date.today.strftime(("%d/%m/%Y")) %></p>
+      <%= f.collection_radio_buttons(:start_date, @slots, :last, :first) do |b| %>
+      <%=  b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary") %>
+      <% end %>
       <p><%= Date.tomorrow.strftime(("%d/%m/%Y")) %></p>
-      <%= f.collection_radio_buttons(:start_date, @slots_tomorrow, :last, :first) do |b|
-        b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary")
-      end %>
+      <%= f.collection_radio_buttons(:start_date, @slots_tomorrow, :last, :first) do |tomorrow| %>
+      <%=  tomorrow.radio_button(class: "btn-check") + tomorrow.label(class: "btn btn-primary") %>
+      <% end %>
       <p><%= 2.day.from_now.strftime(("%d/%m/%Y")) %></p>
-      <%= f.collection_radio_buttons(:start_date, @slots_j2, :last, :first) do |b|
-        b.radio_button(class: "btn-check") + b.label(class: "btn btn-primary")
-      end %>
-    <br>
+      <%= f.collection_radio_buttons(:start_date, @slots_j2, :last, :first) do |j2| %>
+      <%= j2.radio_button(class: "btn-check") + j2.label(class: "btn btn-primary") %>
+      <% end %>
+      <br>
       <%= f.button :submit, "Valider", class: "btn btn-primary" %>
     <% end %>
   </div>

@@ -20,7 +20,8 @@ class SalonsController < ApplicationController
   end
 
   def map
-    @salons = Salon.all
+    @salons = policy_scope(Salon)
+    authorize @salons
     @markers = @salons.geocoded.map do |salon|
       {
         lat: salon.latitude,
@@ -33,10 +34,6 @@ class SalonsController < ApplicationController
 
   def set_salon
     @salon = Salon.find(params[:id])
-  end
-
-  def set_salons
-    @salons = Salon.all
   end
 
   def salon_params
