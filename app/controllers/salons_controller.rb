@@ -25,7 +25,8 @@ class SalonsController < ApplicationController
     @markers = @salons.geocoded.map do |salon|
       {
         lat: salon.latitude,
-        lng: salon.longitude
+        lng: salon.longitude,
+        map_card_html: render_to_string(partial: "map_card", locals: {salon: salon})
       }
     end
   end
