@@ -20,4 +20,7 @@ class BookingPolicy < ApplicationPolicy
     # user == record.salon.user
     true
   end
+  def destroy?
+    user == record.user
+  end
 end

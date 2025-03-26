@@ -18,24 +18,7 @@ class BookingsController < ApplicationController
     @professional_service = ProfessionalService.find(params[:professional_service_id])
     @professional = @professional_service.professional
     @service = @professional_service.service
-   # Slots du jour
-    start_time = Time.now.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time = Time.now.beginning_of_day+64800
-    @slots = (start_time.to_i..end_time.to_i).step(3600).map do |t|
-      [Time.at(t).strftime("%H:%M"), Time.at(t)]
-    end
-    # Slot du lendemain
-    start_time_1 = Time.now.tomorrow.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time_1 = Time.now.tomorrow.beginning_of_day+64800
-    @slots_tomorrow = (start_time_1.to_i..end_time_1.to_i).step(3600).map do |t|
-      [Time.at(t).strftime("%H:%M"), Time.at(t)]
-    end
-    # Slot j+2
-    start_time_2 = 2.day.from_now.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time_2 = 2.day.from_now.beginning_of_day+64800
-    @slots_j2 = (start_time_2.to_i..end_time_2.to_i).step(3600).map do |t|
-      [Time.at(t).strftime("%H:%M"), Time.at(t)]
-    end
+
   end
 
   def create
@@ -45,24 +28,6 @@ class BookingsController < ApplicationController
     @booking.professional_service = @professional_service
     authorize @booking
 
-    # Slots du jour
-    start_time = Time.now.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time = Time.now.beginning_of_day+64800
-    @slots = (start_time.to_i..end_time.to_i).step(3600).map do |t|
-      [Time.at(t).strftime("%H:%M"), Time.at(t)]
-    end
-    # Slot du lendemain
-    start_time_1 = Time.now.tomorrow.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time_1 = Time.now.tomorrow.beginning_of_day+64800
-    @slots_tomorrow = (start_time_1.to_i..end_time_1.to_i).step(3600).map do |t|
-      [Time.at(t).strftime("%H:%M"), Time.at(t)]
-    end
-    # Slot j+2
-    start_time_2 = 2.day.from_now.beginning_of_day+28800 # Exemple de créneaux horaires
-    end_time_2 = 2.day.from_now.beginning_of_day+64800
-    @slots_j2 = (start_time_2.to_i..end_time_2.to_i).step(3600).map do |t|
-      [Time.at(t).strftime("%H:%M"), Time.at(t)]
-    end
     if @booking.save
       redirect_to  profil_path, notice: "Réservation validée"
     else
@@ -89,7 +54,8 @@ class BookingsController < ApplicationController
   def destroy
     @booking = current_user.bookings.find(params[:id])
     @booking.destroy
-    redirect_to bookings_path, notice: "Réservation annulée."
+    redirect_to profil_path, notice: "Réservation annulée."
+    authorize @booking
   end
 
   private

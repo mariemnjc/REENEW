@@ -1,59 +1,97 @@
 <div class="container">
   <main class="card-show-content">
     <div class="profil-card-pro text-center">
-      <%= cl_image_tag @salon.photo.key, class:"rounded", width: 200, height: 100, crop: :fill %>
+      <%= cl_image_tag @salon.photo.key, class:"rounded mb-4", width: 300, height: 200, crop: :fill %>
       <h2><%= @salon.name %></h2>
-      <%= @salon.certified ? "Ce professionnel est certifié Estheticert" : "" %>
+      <p id="certified"><%= @salon.certified ? "Ce professionnel est certifié Estheticert ✓" : "" %></p>
+        <p id="rating"><%= @salon.average_rating %></p>
+          <% @bookings.each do |booking| %>
+            <p><%= booking.rating %></p>
+            <p><%= booking.review %></p>
+          <% end %>
     </div>
     <div class="card-pro">
-      <h4 class="onglet-nav" >CARTE DES SOINS</h4>
-      <ul>
-        <% @professional_services.each do |professional_service| %>
-          <li>
-            <p><%= professional_service.service.name %></p>
-            <p><%= professional_service.service.price %>€</p>
-            <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn-select" %>
-          </li>
-        <% end %>
-      </ul>
 
-      <h4 class="onglet-nav">RECOMMANDATIONS</h4>
-        <p><%= @salon.average_rating %></p>
-        <% @bookings.each do |booking| %>
-          <p><%= booking.rating %></p>
-          <p><%= booking.review %></p>
-        <% end %>
 
-      <h4 class="onglet-nav">INFORMATIONS GÉNÉRALES</h4>
+      <div class="card-description text-center">
         <p><%= @salon.description %></p>
+      </div>
 
-        <h5 class="nav-card">ADRESSE</h5>
-          <p>📍 </i><%= @salon.address %></p>
-
-        <h5 class="nav-card">FORMATION ET EXPÉRIENCE</h5>
-        <p> 🎓 Parcours académique</p>
-          <ul>
-            <% @diplomas.each do |diploma| %>
-              <li><%= diploma.date %> - <%= diploma.title %></p></li>
+        <p>
+          <button
+            class="onglet-nav" type="button" >CARTE DES SOINS
+          </button>
+        </p>
+        <div>
+          <ul id="services">
+            <% @professional_services.each do |professional_service| %>
+              <li class="list_services">
+                <p><%= professional_service.service.name %></p>
+                <p id="price_tag"><%= professional_service.service.price %>€</p>
+                <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn-select" %>
+              </li>
             <% end %>
           </ul>
-        <p> 💅🏼 Parcours professionnel</p>
-          <ul>
-            <% unless @professionals.any? {|professional|professional.experiences} %>
-              <p>Aucune expérience renseignée.</p>
-            <% end %>
-            <% @professionals.each do |professional| %>
-              <% next unless professional.experiences %>
-              <li><%= professional.experiences %></li>
-            <% end %>
-          </ul>
+          <p>
+        </div>
 
-      <h4 class="nav-card">EQUIPE DE SOIN</h4>
-        <ul>
-          <% @salon.professionals.each do |pro| %>
-            <li><p><%= pro.first_name %> <%= pro.last_name %> - Spécialité : <%= pro.services.pluck(:name).join(", ") if pro.services.present? %></p></li>
+        <button
+          class="onglet-nav" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfos" aria-expanded="false" aria-controls="collapseInfos">INFORMATIONS GÉNÉRALES
+        </button>
+        <div class="collapse" id="collapseInfos">
+
+          <p>
+            <button
+              class="nav-card" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdresse" aria-expanded="false" aria-controls="collapseAdresse">ADRESSE ET CONTACT
+            </button>
+          </p>
+          <div class="collapse" id="collapseAdresse">
+                <p>📍 </i><%= @salon.address %></p>
+                <p>📞 </i><%= @salon.phone %></p>
+          </div>
+
+          <p>
+            <button
+              class="nav-card" type="button" data-bs-toggle="collapse" data-bs-target="#collapseXP" aria-expanded="false" aria-controls="collapseXP">FORMATION ET EXPÉRIENCE
+            </button>
+          </p>
+          <div class="collapse" id="collapseXP">
+            <p> 🎓 Parcours académique</p>
+              <ul>
+              <%# <% @salon.professionals.each do |pro| %>
+                <% @diplomas.each do |diploma| %>
+                  <%= diploma.date %> - <%= diploma.title %></p>
+                <% end %>
+              <%# <% end %>
+              </ul>
+            <p> 💅🏼 Parcours professionnel</p>
+              <ul>
+                <% unless @professionals.any? {|professional|professional.experiences} %>
+                  <p>Aucune expérience renseignée.</p>
+                <% end %>
+                <% @professionals.each do |professional| %>
+                  <% next unless professional.experiences %>
+                  <li><%= professional.experiences %></li>
+                <% end %>
+              </ul>
+            </div>
+
+          <% if @salon.professionals.any? %>
+            <p>
+              <button
+                class="nav-card" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEquipe" aria-expanded="false" aria-controls="collapseEquipe">EQUIPE DE SOIN
+              </button>
+            </p>
+            <div class="collapse" id="collapseEquipe">
+              <% @salon.professionals.each do |pro| %>
+                  <p class="pro-salon"><%= pro.first_name %></p>
+                  <p><%= pro.services.pluck(:name).join(", ") if pro.services.present? %></p>
+                  <% end %>
+                </div>
+            </div>
+          <% else %>
+            <%# Ne rien afficher dans le bloc else %>
           <% end %>
-        </ul>
-    </div>
+        </div>
   </main>
 </div>

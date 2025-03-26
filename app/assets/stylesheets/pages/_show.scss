@@ -11,7 +11,7 @@ p {
 }
 
 .card-pro {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px #00000033;
   padding: 20px;
   margin: 20px;
   border-radius: 20px;
@@ -25,6 +25,8 @@ p {
   margin: 5px;
   font-size: 16px;
   padding-left: 15px;
+  border: none;
+  width: 100%;
 }
 
 .nav-card {
@@ -34,18 +36,45 @@ p {
   color: #6A38FF;
   font-size: 16px;
   padding-left: 8px;
+  border-radius: 5px;
+  border: none;
 }
 
 .btn-select {
-  background: #6A38FF;
+  background: #555555;
   color: white;
   padding: 8px;
   margin: 5px;
   font-size: 14px;
   text-decoration: none;
   border-radius: 10px;
+  position: relative;
+  bottom: 30px;
+  left: 250px;
 }
 
 .btn-select:hover {
-  background: #7961c1;
+  background: #666371;
+}
+
+#navbar {
+  position: absolute;
+}
+
+.list_services {
+  list-style: none;
+}
+
+#certified {
+  color: #6A38FF;
+  font-weight: 400;
+}
+
+#price_tag {
+  color: rgb(109, 109, 109);
+  font-size: 12px;
+}
+
+#services {
+  padding-left: 0px;
 }
