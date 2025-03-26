@@ -1,5 +1,15 @@
 <div class="container text-center">
-  <div class="form-control">
-
-
+  <div class="container text-center">
+    <h1>Votre Réservation</h1>
+      <div class="form-control" >
+        <p><%= @service.name %></p>
+        <p><%= @professional.first_name %></p>
+        <%= simple_form_for [@professional_service, @booking] do |f| %>
+          <%= f.input :start_date,
+                as: :string,
+                input_html: { data: { controller: "datepicker"}} %>
+          <%= f.button :submit, "Valider", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+  </div>
 </div>
