@@ -1,5 +1,5 @@
 class ProfessionalsController < ApplicationController
-  layout "salons"
+  layout "pros/salons"
   before_action :authenticate_user!
   before_action :set_salon, only: [:index, :new, :create]
   before_action :set_professional, only: [:show]
