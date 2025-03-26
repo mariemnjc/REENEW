@@ -1,15 +1,18 @@
-<div class="container text-center">
-  <div class="container text-center">
+
+
+<%= link_to "Accueil", root_path, class: "btn btn-back-form" %>
+<div id="book-form-container" class="container">
     <h1>Votre Réservation</h1>
-      <div class="form-control" >
-        <p><%= @service.name %></p>
-        <p><%= @professional.first_name %></p>
+    <div class="recap card text-center">
+        <p><strong><%= @service.name %> - <%= @service.price %>€</strong></p>
+        <p> Avec <%= @professional.first_name %></p>
+    </div>
+      <div  id="calendar-book" class="form-control card text-center" >
         <%= simple_form_for [@professional_service, @booking] do |f| %>
-          <%= f.input :start_date,
+          <%= f.input :start_date, :label => "Choisissez votre rendez-vous", error: "Vous devez valider une date et un créneau !",
                 as: :string,
                 input_html: { data: { controller: "datepicker"}} %>
-          <%= f.button :submit, "Valider", class: "btn btn-primary" %>
+          <%= f.button :submit, "Valider", class: "btn new-salon"%>
         <% end %>
       </div>
-  </div>
 </div>

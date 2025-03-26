@@ -54,7 +54,8 @@ class BookingsController < ApplicationController
   def destroy
     @booking = current_user.bookings.find(params[:id])
     @booking.destroy
-    redirect_to bookings_path, notice: "Réservation annulée."
+    redirect_to profil_path, notice: "Réservation annulée."
+    authorize @booking
   end
 
   private
