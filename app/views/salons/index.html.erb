@@ -1,18 +1,14 @@
 <div class="container mt-4">
-
-  <!-- FORMULAIRE (nécessaire pour submit dans certains cas) -->
+  <!-- FILTRE GLOBAL -->
   <%= form_with url: salons_path, method: :get, local: true, class: "category-filter-form" do %>
     <%= hidden_field_tag :location, params[:location] %>
 
     <!-- 🖥️ DESKTOP FILTERS -->
     <div class="filter-bar-desktop d-none d-md-flex justify-content-between align-items-center mb-4">
-
-      <!-- Faux Select dropup -->
       <div class="dropdown dropup w-50 me-2">
         <button class="btn btn-light dropdown-toggle w-100 border category-dropdown-btn" type="button" id="styleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <%= params[:style].presence || "Tous" %>
         </button>
-
         <ul class="dropdown-menu w-100" aria-labelledby="styleDropdown">
           <% @service_categories.each do |category| %>
             <li>
@@ -24,19 +20,15 @@
         </ul>
       </div>
 
-      <!-- Bouton Carte -->
       <%= link_to "🗺️ Carte", map_salons_path, class: "btn btn-light border map-btn" %>
     </div>
 
-    <!-- 📱 MOBILE BOTTOM BAR -->
+    <!-- 📱 MOBILE BAR FIXÉE -->
     <div class="filter-bar-mobile d-md-none fixed-bottom bg-white shadow-lg p-2 d-flex justify-content-around border-top">
-
-      <!-- Dropup Mobile -->
       <div class="dropdown dropup w-50">
         <button class="btn btn-light dropdown-toggle w-100 border category-dropdown-btn" type="button" id="styleDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false">
           <%= params[:style].presence || "Tous" %>
         </button>
-
         <ul class="dropdown-menu w-100" aria-labelledby="styleDropdownMobile">
           <% @service_categories.each do |category| %>
             <li>
@@ -48,7 +40,6 @@
         </ul>
       </div>
 
-      <!-- Carte -->
       <%= link_to "🗺️ Carte", map_salons_path, class: "btn btn-primary w-45 text-white" %>
     </div>
   <% end %>
@@ -65,18 +56,18 @@
           <% end %>
 
           <% if salon.photo.attached? %>
-            <%= cl_image_tag salon.photo.key, width: 100, height: 100, crop: :fill, class: "salon-image" %>
+            <%= image_tag url_for(salon.photo), width: 100, height: 100, class: "salon-image", alt: salon.name %>
           <% else %>
-            <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 100, height: 100, class: "salon-image" %>
+            <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 100, height: 100, class: "salon-image", alt: salon.name %>
           <% end %>
         </div>
 
         <div class="bottom-part">
-          <h5 class="salon-title"><%= salon.name %></h5>
-          <p class="salon-address"><%= salon.address %></p>
-          <p class="salon-rating">
+          <div class="salon-title"><%= salon.name %></div>
+          <div class="salon-address"><%= salon.address %></div>
+          <div class="salon-rating">
             <%= salon.average_rating || "—" %> <i class="fa-solid fa-star text-warning"></i>
-          </p>
+          </div>
         </div>
       <% end %>
     <% end %>

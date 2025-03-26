@@ -3,38 +3,56 @@
 <div class="container mt-5">
   <div class="home-content">
 
-    <%# Introduction %>
-      <div id="home-title" class="container text-center">
-        <h2>Rencontrez les meilleurs professionnels du soin</h2>
-        <br>
-        <p>Reenew garantie la conformité de votre prestataire et assure le respect des normes de sécurité, d’hygiène et de confort</p>
-      </div>
-        <br>
+    <!-- 🏠 Titre d’accueil -->
+    <div id="home-title" class="container text-center mb-4">
+      <h2>Rencontrez les meilleurs professionnels du soin</h2>
+      <p>Reenew garantit la conformité de votre prestataire et assure le respect des normes de sécurité, d’hygiène et de confort</p>
+    </div>
 
-   <%# 🔍 Barre de recherche %>
-    <div class="search-container">
+    <!-- 🔍 Barre de recherche -->
+    <div class="search-container mb-5">
       <div class="search-bar">
-        <div class="col-sm-8 my-3">
-          <%= form_with url: salons_path, method: :get, local: true, class: "d-flex search-form" do %>
-            <%= text_field_tag :query, params[:query], class: "form-control search-input", placeholder: "Quel type de soin cherchez-vous ?", style: "border-radius: 10px"%>
-            <button type="submit" text="Rechercher" class="search-button" style="border-radius: 10px">
-              <i class="fas fa-search"></i>
-            </button>
-          <% end %>
-        </div>
+        <%= form_with url: salons_path, method: :get, local: true, class: "d-flex search-form" do %>
+          <%= text_field_tag :query, params[:query], class: "form-control search-input", placeholder: "Quel type de soin cherchez-vous ?" %>
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        <% end %>
       </div>
     </div>
 
-    <%# Ajoutez un établissement professionnel %>
-    <div class="professional-sign-up">
+    <!-- 💼 Appel aux pros -->
+    <div class="professional-sign-up text-center mb-5">
       <p>Vous êtes un professionnel ?</p>
       <div class="button-create-salon">
-      <% if current_user %>
-        <%= link_to "Ajouter un établissement", new_salon_path, class: "btn new-salon" %>
-      <% else %>
-        <%= link_to "Ajouter un établissement", new_user_registration_path, class: "btn new-salon" %>
-       <% end %>
+        <% if current_user %>
+          <%= link_to "Ajouter un établissement", new_salon_path, class: "btn new-salon" %>
+        <% else %>
+          <%= link_to "Ajouter un établissement", new_user_registration_path, class: "btn new-salon" %>
+        <% end %>
       </div>
     </div>
+
+    <!-- 🌟 Salons recommandés -->
+    <div class="recommended-salons mt-5 text-center">
+      <h3>Salons recommandés</h3>
+      <div class="row justify-content-center mt-4">
+        <% @recommended_salons.each do |salon| %>
+          <div class="col-md-4 mb-4">
+            <div class="card-salon-modern">
+              <div class="top-part">
+                <%= image_tag salon.photo.attached? ? url_for(salon.photo) : 'default_salon.jpg', alt: salon.name, class: "salon-image" %>
+              </div>
+              <div class="bottom-part">
+                <div class="salon-title"><%= salon.name %></div>
+                <div class="salon-address"><%= salon.address %></div>
+                <%= link_to "Voir le salon", salon_path(salon), class: "btn btn-sm btn-primary mt-2" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>
