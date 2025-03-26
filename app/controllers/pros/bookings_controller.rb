@@ -6,6 +6,7 @@ class Pros::BookingsController < ApplicationController
       # @bookings = policy_scope(Booking)
       @bookings = @bookings.joins(professional_service: :professional)
       @bookings = @bookings.where(professionals: { salon_id: @salon.id })
+      render "pros/bookings/index"
     end
   end
 end

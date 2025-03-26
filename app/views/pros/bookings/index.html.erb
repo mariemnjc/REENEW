@@ -1,5 +1,5 @@
 <div class="salons-container">
-
+  <%= render 'pros/salons/sidebar' %>
   <main class="main-content">
 <h2>Planning des Réservations pour le salon <%= @salon.name %></h2>
 <%= month_calendar events: @bookings, attribute: :start_date do |date, bookings| %>
