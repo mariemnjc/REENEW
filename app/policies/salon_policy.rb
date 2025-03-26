@@ -15,8 +15,7 @@ class SalonPolicy < ApplicationPolicy
     true
   end
 
-  # Autorise l'accès au dashboard du salon
-  def dashboard?
+  def map?
     true
   end
 

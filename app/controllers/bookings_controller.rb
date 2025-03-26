@@ -18,6 +18,7 @@ class BookingsController < ApplicationController
     @professional_service = ProfessionalService.find(params[:professional_service_id])
     @professional = @professional_service.professional
     @service = @professional_service.service
+
   end
 
   def create
@@ -26,6 +27,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.professional_service = @professional_service
     authorize @booking
+
     if @booking.save
       redirect_to  profil_path, notice: "Réservation validée"
     else
