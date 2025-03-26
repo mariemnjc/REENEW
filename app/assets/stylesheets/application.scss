@@ -17,6 +17,7 @@
 @import "pages/salons";
 @import "pages/show";
 @import "pages/map";
+@import "components/booking-form";
 
 // Global layout rules
 body {
@@ -86,7 +87,7 @@ body {
     h3 {
       font-size: 1.8rem;
       font-weight: 700;
-      color: rgb(106, 56, 255);
+      color: hsl(255, 100%, 61%);
     }
 
     small {
@@ -127,7 +128,7 @@ body {
 }
 
 .month-calendar > div strong {
-  color: rgb(106, 56, 255);
+  color: #6a38ff;
   font-weight: 600;
   font-size: 0.95rem;
 }
@@ -145,6 +146,12 @@ body {
 .booking:not(:last-child) {
   margin-bottom: 4px;
 }
+
+
+
+
+.book-form-btn {
+  color: #6a38ff !important;
 
 // --- Container principal du listing ---
 .salon-container {

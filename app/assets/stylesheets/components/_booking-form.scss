@@ -1,0 +1,65 @@
+// CSS du formulaire
+#book-form-container {
+ margin-top: 50px;
+//  border: solid #ffffff 1px;
+//  box-shadow: 5px 2px 5px 5px #f4f3f6;
+ padding: 30px;
+}
+
+
+.btn-back-form {
+  background-color: #6A38FF;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+  top: 40px;
+  left: 20px;
+}
+
+#book-form-container h1 {
+  color : #281464;
+  text-align: center;
+}
+
+.recap {
+
+  margin: 30px 20px 30px 20px !important;
+  padding: 5px;
+}
+
+#calendar-book {
+  background-color: white;
+  border-radius: 15px;
+
+}
+
+
+// CSS tableau des résas
+
+
+#book-table-container {
+  margin-top: 50px;
+}
+
+
+#table-bookings td {
+background-color: white;
+}
+
+.btn-resa {
+  background-color: #6A38FF;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#h1-resa {
+  color : #281464;
+}
