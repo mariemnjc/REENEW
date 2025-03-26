@@ -1,0 +1,24 @@
+  <!-- Card pro -->
+    <div class="salon">
+        <div class="card-salon" >
+          <%= link_to salon_path(salon), class: 'text-decoration-none' do %>
+            <div class="body-map">
+              <% if salon.photo.attached? %>
+                  <%= cl_image_tag salon.photo.key, width: 30, height: 30, crop: :fill%>
+                <% else %>
+                  <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 150, height: 60 %>
+                <% end %>
+                <br>
+                  <h5 class="card-title mb-2"><%= salon.name %>
+                  <% if salon.certified? %>
+                  <i class="fa-solid fa-circle-check certified-icon"></i>
+                <% end %>
+                </h5>
+                <div class="info-map">
+                  <p class="map-location"><%= salon.address %></p>
+                  <p class="map-text"><%= salon.average_rating %> <i class="fa-solid fa-star"></i></p>
+                </div>
+            </div>
+        </div>
+            <% end %>
+    </div>
