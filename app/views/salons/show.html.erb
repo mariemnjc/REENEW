@@ -4,8 +4,14 @@
       <%= cl_image_tag @salon.photo.key, class:"rounded mb-4", width: 300, height: 200, crop: :fill %>
       <h2><%= @salon.name %></h2>
       <p id="certified"><%= @salon.certified ? "Ce professionnel est certifié Estheticert ✓" : "" %></p>
+        <p id="rating"><%= @salon.average_rating %></p>
+          <% @bookings.each do |booking| %>
+            <p><%= booking.rating %></p>
+            <p><%= booking.review %></p>
+          <% end %>
     </div>
     <div class="card-pro">
+
 
       <div class="card-description text-center">
         <p><%= @salon.description %></p>
@@ -17,7 +23,7 @@
           </button>
         </p>
         <div>
-          <ul>
+          <ul id="services">
             <% @professional_services.each do |professional_service| %>
               <li class="list_services">
                 <p><%= professional_service.service.name %></p>
@@ -29,11 +35,9 @@
           <p>
         </div>
 
-        <p>
-          <button
-            class="onglet-nav" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfos" aria-expanded="false" aria-controls="collapseInfos">INFORMATIONS GÉNÉRALES
-          </button>
-        </p>
+        <button
+          class="onglet-nav" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfos" aria-expanded="false" aria-controls="collapseInfos">INFORMATIONS GÉNÉRALES
+        </button>
         <div class="collapse" id="collapseInfos">
 
           <p>
@@ -88,19 +92,6 @@
           <% else %>
             <%# Ne rien afficher dans le bloc else %>
           <% end %>
-
-        <p>
-          <button
-            class="onglet-nav" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReco" aria-expanded="false" aria-controls="collapseReco">RECOMMANDATIONS
-          </button>
-        </p>
-        <div class="collapse" id="collapseReco">
-          <p><%= @salon.average_rating %></p>
-          <% @bookings.each do |booking| %>
-            <p><%= booking.rating %></p>
-            <p><%= booking.review %></p>
-          <% end %>
         </div>
-    </div>
   </main>
 </div>

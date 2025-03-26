@@ -26,6 +26,7 @@ p {
   font-size: 16px;
   padding-left: 15px;
   border: none;
+  width: 100%;
 }
 
 .nav-card {
@@ -40,7 +41,7 @@ p {
 }
 
 .btn-select {
-  background: #6A38FF;
+  background: #555555;
   color: white;
   padding: 8px;
   margin: 5px;
@@ -49,11 +50,11 @@ p {
   border-radius: 10px;
   position: relative;
   bottom: 30px;
-  left: 210px;
+  left: 250px;
 }
 
 .btn-select:hover {
-  background: #5f37da;
+  background: #666371;
 }
 
 #navbar {
@@ -72,4 +73,8 @@ p {
 #price_tag {
   color: rgb(109, 109, 109);
   font-size: 12px;
+}
+
+#services {
+  padding-left: 0px;
 }
