@@ -7,11 +7,15 @@
     <strong><%= date.strftime("%d %b") %></strong>
     <% bookings.each do |booking| %>
       <div class="booking">
-        Réservation: <%= booking.user.first_name rescue "Client" %><br>
-        Du <%= booking.start_date.strftime("%d/%m") %> au <%= booking.end_date.strftime("%d/%m") %>
+        <%= link_to pros_salon_bookings_path(@salon, booking), class: "booking-link" do %>
+          <%= booking.start_date.strftime("%H:%M") %>
+          <%= booking.user.first_name.presence || "Client" %>
+          <%= booking.service.name if booking.respond_to?(:service) && booking.service %>
+        <% end %>
       </div>
     <% end %>
   </div>
 <% end %>
+
   </main>
 </div>
