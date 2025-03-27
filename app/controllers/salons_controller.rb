@@ -10,6 +10,7 @@ class SalonsController < ApplicationController
     @professional_services = @salon.professional_services.includes(:service)
     @professionals = @salon.professionals
     @diplomas = Diploma.joins(professional: :salon).where(professional: { salon: @salon })
+    @services_by_category = @professional_services.group_by { |pro_services| pro_services.service.category }
   end
 
   def index

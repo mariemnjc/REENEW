@@ -1,21 +1,20 @@
 <div class="salons-container">
   <%= render 'pros/salons/sidebar' %>
   <main class="main-content">
-<h2>Planning des Réservations pour le salon <%= @salon.name %></h2>
-<%= month_calendar events: @bookings, attribute: :start_date do |date, bookings| %>
-  <div>
-    <strong><%= date.strftime("%d %b") %></strong>
-    <% bookings.each do |booking| %>
-      <div class="booking">
-        <%= link_to pros_salon_bookings_path(@salon, booking), class: "booking-link" do %>
-          <%= booking.start_date.strftime("%H:%M") %>
-          <%= booking.user.first_name.presence || "Client" %>
-          <%= booking.service.name if booking.respond_to?(:service) && booking.service %>
+    <h2>Planning des Réservations pour le salon <%= @salon.name %></h2>
+    <%= month_calendar events: @bookings, attribute: :start_date do |date, bookings| %>
+      <div>
+        <strong><%= date.strftime("%d %b") %></strong>
+        <% bookings.each do |booking| %>
+          <div class="booking">
+            <%= link_to pros_salon_booking_path(@salon, booking), class: "booking-link" do %>
+              <%= booking.start_date.strftime("%H:%M") %>
+              <%= booking.user.first_name.presence || "Client" %>
+              <%= booking.service.name if booking.respond_to?(:service) && booking.service %>
+            <% end %>
+          </div>
         <% end %>
       </div>
     <% end %>
-  </div>
-<% end %>
-
   </main>
 </div>
