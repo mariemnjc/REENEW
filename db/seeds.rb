@@ -13,9 +13,20 @@ User.destroy_all
 puts "Création d'un utilisateur admin..."
 admin = User.create!(
   id: 1,
+  first_name: "Caroline",
+  last_name: "Fougère",
+  email: "caro-pro@gmail.com",
+  phone: "0600000000",
+  address: "1 rue du Bien-Être, Paris",
+  categories: "esthétique",
+  password: "password"
+)
+
+user = User.create!(
+  id: 2,
   first_name: "Valentin",
   last_name: "Malemanche",
-  email: "vmalemanche@gmail.com",
+  email: "val@gmail.com",
   phone: "0600000000",
   address: "1 rue du Bien-Être, Paris",
   categories: "esthétique",
@@ -34,13 +45,13 @@ puts "Création de salons..."
 # ]
 
 salons = [
-  {name: "Maison de Beauté Dulcenae", address: "60 Rue de Caumartin, 75009 Paris", description: "Ici, les soins prennent acte de la singularité des corps,", phone: "0142001230", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Maison de Beauté Dulcenae", address: "60 Rue de Caumartin, 75009 Paris", description: "Ici, les soins prennent acte de la singularité des corps,", phone: "0142001230", opening_hour: "9h00 - 18h00", certified: false, user_id: user.id},
   {name: "Mon Petit Institut", address: "78 Rue Marguerite de Rochechouart, 75009 Paris", description: "Votre bien-être est entre de bonnes mains !", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
-  {name: "Salon de Beauté La Perle", address: "23 Bd du Montparnasse, 75006 Paris", description: "La perle des salons de beauté !", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
-  {name: "Institut de Beauté L'Orchidée", address: "10 rue Rémusat, 31000 Toulouse", description: "On s'occupe de tout, vous s'occupez de rien", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Salon de Beauté La Perle", address: "23 Bd du Montparnasse, 75006 Paris", description: "La perle des salons de beauté !", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: false, user_id: user.id},
+  {name: "Institut de Beauté L'Orchidée", address: "10 rue Rémusat, 31000 Toulouse", description: "On s'occupe de tout, vous s'occupez de rien", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: user.id},
   {name: "BeautyMiss", address: "5 rue de Metz, 31000 Toulouse", description: "Il ya Miss France et il y a BeautyMiss", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
   {name: "Beau'Thé", address: "6 place Saint-Sernin, 31000 Toulouse", description: "Thé à la menthe et Manucures, quoi de mieux?", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
-  {name: "Bio Institut", address: "20 Alsace-Lorraine, 31000 Toulouse", description: "Le bio au service de la beauté", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Bio Institut", address: "20 Alsace-Lorraine, 31000 Toulouse", description: "Le bio au service de la beauté", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: false, user_id: admin.id},
 ]
 created_salons = salons.map do |s|
   salon=Salon.create(
@@ -54,7 +65,7 @@ created_salons = salons.map do |s|
 
   )
   puts "#{salon.name}"
-  
+
 end
 
 puts "Création de services pour le premier salon..."
@@ -90,7 +101,6 @@ services_data = [
 
 puts "Création des professionnels pour le premier salon..."
 professionals = [
-  {first_name: "Marie", last_name: "Dupont", trainings: "CAP Esthétique, BTS Esthétique", experiences: "5 ans d'expérience", salon_id: Salon.first.id},
   {first_name: "Sophie", last_name: "Martin", trainings: "CAP Esthétique, BTS Esthétique", experiences: "3 ans d'expérience", salon_id: Salon.first.id},
   {first_name: "Julien", last_name: "Lefevre", trainings: "CAP Esthétique, BTS Esthétique", experiences: "7 ans d'expérience", salon_id: Salon.first.id}
 ]
