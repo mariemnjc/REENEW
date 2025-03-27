@@ -29,7 +29,7 @@
   .dropdown-menu {
     border: 1px solid rgba(106, 56, 255, 0.1);
     box-shadow: 0 4px 20px rgba(106, 56, 255, 0.08);
-    background:rgba(201, 177, 249, 0.2)
+    background:rgba(201, 177, 249, 1)
   }
 
   .btn-primary {
@@ -47,6 +47,10 @@
 }
 
 .navbar-logo {
-  width: 80px;
+  width: 160px;
   height: auto;
+}
+
+.navbar-toggler {
+  border: none !important;
 }
