@@ -1,4 +1,5 @@
 require 'date'
+require "open-uri"
 
 puts "Nettoyage DB..."
 Booking.destroy_all
@@ -22,17 +23,38 @@ admin = User.create!(
 )
 
 puts "Création de salons..."
-salons = []
-3.times do |i|
-  salons << Salon.create!(
-    name: "Institut Beauté #{i + 1}",
-    address: "#{i + 10} rue Belle, Paris",
-    description: "Salon de beauté #{i + 1} avec prestations haut de gamme",
-    phone: "01420012#{30 + i}",
-    opening_hour: "9h00 - 18h00",
-    certified: true,
+# photo_salon = [
+#   file1 = URI.parse("https://tinyurl.com/3r5jz87n").open.rewind,
+#   file2 = URI.parse("https://cdn1.treatwell.net/images/view/v2.i2462971.w720.h480.xA241127B/").open.rewind,
+#   file3 = URI.parse("https://images.squarespace-cdn.com/content/v1/5c7e7f2d840b16a251e308d3/1616762707383-0ZLKS1MQEYN92BG9TRPI/Institut+Menasa+Bridaine.png?format=750w").open.rewind,
+#   file4 = URI.parse("https://www.parisselectbook.com/wp-content/uploads/2021/07/SB-19451new-scaled-1-scaled.jpg").open.rewind,
+#   file5 = URI.parse("https://www.leslouves.com/wp-content/uploads/2017/05/1_free-persephone-paris.jpg").open.rewind,
+#   file6 = URI.parse("https://uploads.lebonbon.fr/source/2024/auriane/maison-koton-institut-paris.jpeg").open.rewind,
+#   file7 = URI.parse("https://cdn1.treatwell.net/images/view/v2.i3080085.w1080.h720.xABFDFFF9/").open.rewind
+# ]
+
+salons = [
+  {name: "Maison de Beauté Dulcenae", address: "60 Rue de Caumartin, 75009 Paris", description: "Ici, les soins prennent acte de la singularité des corps,", phone: "0142001230", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Mon Petit Institut", address: "78 Rue Marguerite de Rochechouart, 75009 Paris", description: "Votre bien-être est entre de bonnes mains !", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Salon de Beauté La Perle", address: "23 Bd du Montparnasse, 75006 Paris", description: "La perle des salons de beauté !", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Institut de Beauté L'Orchidée", address: "10 rue Rémusat, 31000 Toulouse", description: "On s'occupe de tout, vous s'occupez de rien", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "BeautyMiss", address: "5 rue de Metz, 31000 Toulouse", description: "Il ya Miss France et il y a BeautyMiss", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Beau'Thé", address: "6 place Saint-Sernin, 31000 Toulouse", description: "Thé à la menthe et Manucures, quoi de mieux?", phone: "0142001231", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+  {name: "Bio Institut", address: "20 Alsace-Lorraine, 31000 Toulouse", description: "Le bio au service de la beauté", phone: "0142001232", opening_hour: "9h00 - 18h00", certified: true, user_id: admin.id},
+]
+created_salons = salons.map do |s|
+  salon=Salon.create(
+    name: s[:name],
+    address: s[:address],
+    description: s[:description],
+    phone: s[:phone],
+    opening_hour: s[:opening_hour],
+    certified: s[:certified],
     user_id: admin.id
+
   )
+  puts "#{salon.name}"
+  
 end
 
 puts "Création de services pour le premier salon..."
@@ -68,9 +90,9 @@ services_data = [
 
 puts "Création des professionnels pour le premier salon..."
 professionals = [
-  {first_name: "Marie", last_name: "Dupont", trainings: "CAP Esthétique, BTS Esthétique", experiences: "5 ans d'expérience", salon_id: salons.first.id},
-  {first_name: "Sophie", last_name: "Martin", trainings: "CAP Esthétique, BTS Esthétique", experiences: "3 ans d'expérience", salon_id: salons.first.id},
-  {first_name: "Julie", last_name: "Lefevre", trainings: "CAP Esthétique, BTS Esthétique", experiences: "7 ans d'expérience", salon_id: salons.first.id}
+  {first_name: "Marie", last_name: "Dupont", trainings: "CAP Esthétique, BTS Esthétique", experiences: "5 ans d'expérience", salon_id: Salon.first.id},
+  {first_name: "Sophie", last_name: "Martin", trainings: "CAP Esthétique, BTS Esthétique", experiences: "3 ans d'expérience", salon_id: Salon.first.id},
+  {first_name: "Julien", last_name: "Lefevre", trainings: "CAP Esthétique, BTS Esthétique", experiences: "7 ans d'expérience", salon_id: Salon.first.id}
 ]
 
 puts " Création des diplômes pour le premier professionnel..."
@@ -98,7 +120,7 @@ created_services = services_data.map do |s|
     name: s[:name],
     category: s[:category],
     price: s[:price],
-    salon: salons.first
+    salon: Salon.first
   )
 end
 
