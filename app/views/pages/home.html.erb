@@ -3,26 +3,37 @@
 <div class="container mt-5">
   <div class="home-content">
 
-    <!-- 🏠 Titre d’accueil -->
-    <div id="home-title" class="container text-center mb-4">
-      <h2>Rencontrez les meilleurs professionnels du soin</h2>
-      <p>Reenew garantit la conformité de votre prestataire et assure le respect des normes de sécurité, d’hygiène et de confort</p>
-    </div>
+    <!-- 🏠 HERO section avec image + texte -->
+    <div class="home-hero-section row align-items-center">
 
-    <!-- 🔍 Barre de recherche -->
-    <div class="search-container mb-5">
-      <div class="search-bar">
-        <%= form_with url: salons_path, method: :get, local: true, class: "d-flex search-form" do %>
-          <%= text_field_tag :query, params[:query], class: "form-control search-input", placeholder: "Quel type de soin cherchez-vous ?" %>
-          <button type="submit" class="search-button">
-            <i class="fas fa-search"></i>
-          </button>
-        <% end %>
+      <!-- 📸 Image à gauche -->
+      <div class="col-md-6 text-center hero-image">
+        <%= image_tag "estheticienne_certifiee.png", class: "hero-img-float img-fluid", alt: "Esthéticienne certifiée" %>
+      </div>
+
+      <!-- 📝 Texte + Search -->
+      <div class="col-md-6 hero-text-content">
+        <h2><strong>Rencontrez</strong> les meilleurs professionnels du soin</h2>
+
+        <ul class="trust-bullets list-unstyled mt-4">
+          <li><i class="fas fa-check-circle me-2 text-violet"></i> Conformité garantie des professionnels</li>
+          <li><i class="fas fa-shield-alt me-2 text-violet"></i> Normes de sécurité strictes</li>
+          <li><i class="fas fa-spa me-2 text-violet"></i> Hygiène et confort certifiés</li>
+        </ul>
+
+        <div class="search-bar mt-4">
+          <%= form_with url: salons_path, method: :get, local: true, class: "d-flex search-form" do %>
+            <%= text_field_tag :query, params[:query], class: "form-control search-input", placeholder: "Quel type de soin cherchez-vous ?" %>
+            <button type="submit" class="search-button">
+              <i class="fas fa-search"></i>
+            </button>
+          <% end %>
+        </div>
       </div>
     </div>
 
     <!-- 💼 Appel aux pros -->
-    <div class="professional-sign-up text-center mb-5">
+    <div class="professional-sign-up text-center mt-5 mb-5">
       <p>Vous êtes un professionnel ?</p>
       <div class="button-create-salon">
         <% if current_user %>
@@ -34,14 +45,17 @@
     </div>
 
     <!-- 🌟 Salons recommandés -->
-    <div class="recommended-salons mt-5 text-center">
-      <h3>Salons recommandés</h3>
+    <div class="recommended-salons mt-5 text-center position-relative">
+      <h3 class="d-inline-block align-middle me-2">Salons recommandés</h3>
+      <%= image_tag "certified_by_reenew.png", class: "certified-badge-title rounded-circle align-middle", alt: "Badge certifié Reenew" %> <!-- 🏅 Badge certifié -->
+
+
       <div class="row justify-content-center mt-4">
         <% @recommended_salons.each do |salon| %>
           <div class="col-md-4 mb-4">
             <div class="card-salon-modern">
               <div class="top-part">
-                <%= image_tag salon.photo.attached? ? url_for(salon.photo) : 'default_salon.jpg', alt: salon.name, class: "salon-image" %>
+                <%= cl_image_tag salon.photo.attached? ? url_for(salon.photo) : 'default_salon.jpg', alt: salon.name, class: "salon-image" %>
               </div>
               <div class="bottom-part">
                 <div class="salon-title"><%= salon.name %></div>

@@ -17,6 +17,7 @@
 @import "pages/salons";
 @import "pages/show";
 @import "pages/map";
+@import "pages/pro";
 @import "components/booking-form";
 
 // Global layout rules
@@ -29,8 +30,11 @@ body {
 }
 
 .main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   margin-left: 0px;
-  padding: 40px 20px;
+  padding: 20px;
   flex-grow: 1;
   overflow-y: auto;
   background-color: rgb(245, 242, 250);
@@ -46,7 +50,6 @@ body {
   background-color: rgb(245, 242, 250);
   z-index: 1;
   position: relative;
-  padding-top: 80px; // espace pour la navbar
 }
 
 // Calendar
