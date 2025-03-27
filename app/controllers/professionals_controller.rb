@@ -17,12 +17,14 @@ class ProfessionalsController < ApplicationController
 
   def new
     @professional = @salon.professionals.new
-    authorize @professional
+    authorize @professional, policy_class: Pros::ProfessionalPolicy
+
   end
 
   def create
     @professional = @salon.professionals.build(professional_params)
-    authorize @professional
+    authorize @professional, policy_class: Pros::ProfessionalPolicy
+
 
     if @professional.save
       redirect_to salon_path(@salon), notice: "Professionnel ajouté avec succès."

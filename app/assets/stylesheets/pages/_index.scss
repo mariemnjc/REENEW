@@ -21,7 +21,10 @@
 // Carte page search
 
 .salon-container {
-  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  height: 100%; // ou 100% si tu veux qu'il prenne tout l'écran
+  overflow: hidden;
 }
 
 .card-body {
