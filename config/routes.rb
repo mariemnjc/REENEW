@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   # Route pour le namespace Pro
   namespace :pros do
     resources :salons, except: [:destroy] do
-      resources :bookings, only: [:index]
+      resources :bookings, only: [:index, :show, :destroy]
     end
   end
 end

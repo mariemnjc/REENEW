@@ -9,4 +9,21 @@ class Pros::BookingsController < ApplicationController
       render "pros/bookings/index"
     end
   end
+
+  def show
+    @booking = Booking.find(params[:id])    # Récupérer la réservation via son ID
+    authorize @booking
+    @professional_service = @booking.professional_service
+    @professional = @professional_service.professional
+    @service = @professional_service.service
+    @salon = @professional.salon
+    @user = @booking.user
+  end
+
+  def destroy
+    @booking = Booking.find(params[:id])
+    authorize @booking
+    @booking.destroy
+    redirect_to pros_salon_bookings_path(@booking.professional.salon), notice: "Réservation supprimée avec succès."
+  end
 end

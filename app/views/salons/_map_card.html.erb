@@ -6,10 +6,10 @@
               <% if salon.photo.attached? %>
                   <%= cl_image_tag salon.photo.key, width: 30, height: 30, crop: :fill%>
                 <% else %>
-                  <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 150, height: 60 %>
+                  <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 160, height: 80 %>
                 <% end %>
                 <br>
-                  <h5 class="card-title mb-2"><%= salon.name %>
+                  <h5 class="card-title" id="title"><%= salon.name %>
                   <% if salon.certified? %>
                   <i class="fa-solid fa-circle-check certified-icon"></i>
                 <% end %>
