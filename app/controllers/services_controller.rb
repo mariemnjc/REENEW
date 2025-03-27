@@ -15,7 +15,7 @@ class ServicesController < ApplicationController
     @service = Service.new(service_params.merge(salon: @salon))
     authorize @service
     if @service.save
-      redirect_to pros_salon_services_path(@salon), notice: "Service créé avec succès."
+      redirect_to salon_services_path(@salon), notice: "Service créé avec succès."
     else
       render :new, status: :unprocessable_entity
     end
