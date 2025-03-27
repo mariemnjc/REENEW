@@ -1,7 +1,11 @@
 <div class="container">
   <main class="card-show-content">
     <div class="profil-card-pro text-center">
-      <%= cl_image_tag @salon.photo.key, class:"rounded mb-4", width: 300, height: 200, crop: :fill %>
+          <% if @salon.photo.attached? %>
+            <%= cl_image_tag @salon.photo.key, class:"rounded mb-4", width: 300, height: 200, crop: :fill %>
+          <% else %>
+            <%= image_tag "https://pur-paris.com/wp-content/uploads/2023/01/image-2.webp", width: 100, height: 100, class: "rounded-circle mb-4", alt: @salon.name %>
+          <% end %>
       <h2><%= @salon.name %></h2>
       <p id="certified"><%= @salon.certified ? "Ce professionnel est certifié Esthéticert ✓" : "" %></p>
         <p id="rating"><%= @salon.average_rating %></p>

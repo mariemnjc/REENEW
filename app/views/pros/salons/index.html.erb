@@ -73,63 +73,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Derniers nouveaux clients -->
-      <div class="card mt-4 shadow-sm">
-        <div class="card-header">
-          <h5>Derniers Nouveaux Clients</h5>
-        </div>
-        <div class="card-body">
-          <ul>
-            <li>Client 1 - Inscrit le <%= 1.day.ago.to_date %></li>
-            <li>Client 2 - Inscrit le <%= 3.days.ago.to_date %></li>
-            <li>Client 3 - Inscrit le <%= 5.days.ago.to_date %></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Taux de rétention -->
-      <div class="card mt-4 shadow-sm">
-        <div class="card-header">
-          <h5>Taux de Rétention</h5>
-        </div>
-        <div class="card-body">
-          <h3>85%</h3>
-          <small>Taux de rétention des clients actifs sur les 6 derniers mois</small>
-        </div>
-      </div>
-
-      <!-- Graphiques (exemple simplifié) -->
-      <div class="row mt-4">
-        <!-- Graphique du Chiffre d'Affaires -->
-        <div class="col-md-6">
-          <div class="card shadow-sm">
-            <div class="card-header">
-              <h5>Évolution du Chiffre d'Affaires</h5>
-            </div>
-            <div class="card-body">
-              <!-- Vous pouvez intégrer ici un graphique avec Chart.js ou un autre outil -->
-              <canvas id="caChart" width="400" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <!-- Graphique du taux de rétention -->
-        <div class="col-md-6">
-          <div class="card shadow-sm">
-            <div class="card-header">
-              <h5>Taux de Rétention</h5>
-            </div>
-            <div class="card-body">
-              <canvas id="retentionChart" width="400" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-        </main>
-      </div>
-
-
     <% else %>
       <div class="alert alert-info mt-4">
         Vous n'avez pas encore sélectionné de salon.<br>
