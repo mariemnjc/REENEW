@@ -1,0 +1,25 @@
+<div class="conatiner">
+  <%= link_to "Retour", pros_salon_bookings_path(@salon), class: "back-bookings" %>
+  <h2 id="title-booking">Détails de la réservation</h2>
+    <div class="card-booking">
+
+      <div class="booking-details" id="booking-<%= @booking.id %>">
+        <div class="date text-center">
+          <%= I18n.l(@booking.start_date, format: "%A") %>
+          <strong><p><%= @booking.start_date.strftime("%d/%m") %></p></strong>
+          </div>
+        <button class="booking-category"><%= @booking.service.category %></button>
+          <p><strong>Créneau de réservation</strong></p> <%= @booking.start_date.strftime("%H:%M") %>
+          <p><strong>Professionnel chargé du soin</strong></p> <%= @professional.first_name %>
+          <p class="price"><strong>Prix TTC      </strong> <%= @service.price %> €</p>
+        </div>
+        <div class="info-client">
+          <p><strong>Client :</strong> <%= @user.first_name %></p>
+          <p><strong>Service :</strong> <%= @service.name %></p>
+        </div>
+    </div>
+
+    <%= link_to pros_salon_booking_path(@salon, @booking), method: :delete, data: { confirm: "Souhaitez-vous annuler cette réservation" } do %>
+      <i class="fa fa-trash"></i>
+    <% end %>
+</div>
