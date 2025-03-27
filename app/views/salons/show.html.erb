@@ -3,7 +3,7 @@
     <div class="profil-card-pro text-center">
       <%= cl_image_tag @salon.photo.key, class:"rounded mb-4", width: 300, height: 200, crop: :fill %>
       <h2><%= @salon.name %></h2>
-      <p id="certified"><%= @salon.certified ? "Ce professionnel est certifié Estheticert ✓" : "" %></p>
+      <p id="certified"><%= @salon.certified ? "Ce professionnel est certifié Esthéticert ✓" : "" %></p>
         <p id="rating"><%= @salon.average_rating %></p>
           <% @bookings.each do |booking| %>
             <p><%= booking.rating %></p>
@@ -22,17 +22,33 @@
             class="onglet-nav" type="button" >CARTE DES SOINS
           </button>
         </p>
-        <div>
-          <ul id="services">
-            <% @professional_services.each do |professional_service| %>
-              <li class="list_services">
-                <p><%= professional_service.service.name %></p>
-                <p id="price_tag"><%= professional_service.service.price %>€</p>
-                <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn-select" %>
-              </li>
+        <div class="carte-des-soins">
+          <ul class="category-list">
+            <% ["Maquillage", "Manucure", "Épilation", "Cils", "Pédicure", "Bien-être", "Soins"].each do |category| %>
+            <% if @services_by_category[category].present? %>
+            <button class="onglet-category" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategory-<%= category %>" aria-expanded="false" aria-controls="collapseCategory-<%= category %>">
+              <%= category.capitalize %>
+            </button>
+            <div class="collapse" id="collapseCategory-<%= category %>">
+                <ul class="services-list">
+                  <% @services_by_category.each do |key, value| %>
+                    <% if key == category %>
+                      <% value.each do |professional_service| %>
+                        <li class="list_services d-flex justify-content-between">
+                        <div class="infoservice">
+                          <p><%= professional_service.service.name %></p>
+                          <p id="price_tag"><%= professional_service.service.price %>€</p>
+                        </div>
+                        <%= link_to "Choisir", new_professional_service_booking_path(professional_service), class: "btn-select" %>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </ul>
+            </div>
+            <% end %>
             <% end %>
           </ul>
-          <p>
         </div>
 
         <button
@@ -84,8 +100,10 @@
             </p>
             <div class="collapse" id="collapseEquipe">
               <% @salon.professionals.each do |pro| %>
-                  <p class="pro-salon"><%= pro.first_name %></p>
+                  <p id="pro-salon-name"><%= pro.first_name %></p>
+                <div class="pro-salon">
                   <p><%= pro.services.pluck(:name).join(", ") if pro.services.present? %></p>
+                </div>
                   <% end %>
                 </div>
             </div>

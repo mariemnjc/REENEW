@@ -1,7 +1,8 @@
 .card-booking {
   background-color: white;
   border-radius: 20px;
-  margin: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   gap: 20px;
@@ -43,4 +44,8 @@
   font-size: 24px;
   font-weight: bold;
   color: #6A38FF;
+}
+
+.carte-des-soins {
+  flex-direction: column;
 }
