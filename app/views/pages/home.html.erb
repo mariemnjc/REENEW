@@ -55,11 +55,7 @@
           <div class="col-md-4 mb-4">
             <div class="card-salon-modern">
               <div class="top-part">
-                <%= cl_image_tag(
-                      salon.photo.attached? ? url_for(salon.photo) : 'default_salon.jpg',
-                      alt: salon.name,
-                      class: "salon-image"
-                    ) %>
+                <%= cl_image_tag salon.photo.attached? ? url_for(salon.photo) : 'default_salon.jpg', alt: salon.name, class: "salon-image" %>
               </div>
               <div class="bottom-part">
                 <div class="salon-title"><%= salon.name %></div>
