@@ -1,0 +1,57 @@
+// 📄 Styles pour la liste des professionnels
+
+.salons-container {
+  background-color: rgb(245, 242, 250);
+  display: flex;
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #29175a;
+  }
+
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .card-body {
+      padding: 1rem;
+
+      .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #37286b;
+      }
+
+      .card-text {
+        font-size: 0.9rem;
+        color: #444;
+        line-height: 1.4;
+
+        ul {
+          padding-left: 1.2rem;
+          margin-bottom: 0.4rem;
+        }
+
+        li {
+          font-size: 0.85rem;
+        }
+      }
+
+      .btn {
+        align-self: flex-start;
+      }
+    }
+  }
+}

@@ -12,11 +12,11 @@
     <%= javascript_importmap_tags %>
 </head>
 <body>
+    <%= render "shared/navbar" %>
   <div class="salons-container">
+    <%= render 'pros/salons/sidebar' %>
 
   <!-- Sidebar avec le dropdown -->
-    <%= render "shared/navbar" %>
-    <%= render 'pros/salons/sidebar' %>
 
     <!-- Contenu principal -->
     <main class="main-content">
