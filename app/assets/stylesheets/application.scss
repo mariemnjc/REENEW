@@ -219,9 +219,9 @@ body {
   }
 
   .certified-icon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+    position: relative;
+    top: 65px;
+    left: 189px;
     width: 32px;
     height: 32px;
     z-index: 10;
@@ -232,6 +232,13 @@ body {
       object-fit: contain;
     }
   }
+  // Icone certifié
+
+// .certified-icon-index {
+//   left: 147px;
+//   font-size: 30px;
+//   bottom: 4px;
+// }
 
   .bottom-part {
     flex-grow: 1;
